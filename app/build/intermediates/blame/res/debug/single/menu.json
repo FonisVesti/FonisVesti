@@ -2,5 +2,9 @@
     {
         "merged": "C:\\Users\\Dusan\\AndroidStudioProjects\\FonisVesti\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
         "source": "C:\\Users\\Dusan\\AndroidStudioProjects\\FonisVesti\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Stefan\\StudioProjects\\FonisVesti\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Stefan\\StudioProjects\\FonisVesti\\app\\src\\main\\res\\menu\\menu_main.xml"
     }
 ]

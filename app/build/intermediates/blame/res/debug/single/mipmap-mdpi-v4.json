@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Stefan\\StudioProjects\\FonisVesti\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Stefan\\StudioProjects\\FonisVesti\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\Dusan\\AndroidStudioProjects\\FonisVesti\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\Dusan\\AndroidStudioProjects\\FonisVesti\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     }
