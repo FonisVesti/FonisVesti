@@ -16,46 +16,22 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button1 = (Button) findViewById(R.id.button1);               // po defaultu vam u XMLu stoji id button, tako da samo treba da promenite na button1, button 2, itd.
-        button1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {                                 // error poruka je tu sve dok se ne ubaci dugme u dizajn
-                Uri uri = Uri.parse("http://www.fonis.rs");                 //SAJT
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
+        Button button1 = (Button) findViewById(R.id.button1);
         Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.facebook.com/fonis.rs");   //FB
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
         Button button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://twitter.com/fonis_fon");       //Tviter
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
         Button button4 = (Button) findViewById(R.id.button4);
-        button4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.linkedin.com/company/fonis"); //LI
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
         Button button5 = (Button) findViewById(R.id.button5);
-        button5.setOnClickListener(new View.OnClickListener() {
+        linkovanje(button1, "http://www.fonis.rs");
+        linkovanje(button2, "https://www.facebook.com/fonis.rs");
+        linkovanje(button3, "https://twitter.com/fonis_fon");
+        linkovanje(button4, "https://www.linkedin.com/company/fonis");
+        linkovanje(button5, "https://www.youtube.com/user/FonisFON");
+    }
+
+    public void linkovanje (Button button, final String sajt) {
+        button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.youtube.com/user/FonisFON"); //YT
+                Uri uri = Uri.parse(sajt);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
