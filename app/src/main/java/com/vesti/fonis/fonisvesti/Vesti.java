@@ -23,20 +23,14 @@ import java.util.concurrent.ExecutionException;
 public abstract class Vesti {
     public static List<Vest> vestiLista=new ArrayList<>();
     public static int brojVesti;
-
+    public static GregorianCalendar datumPoslednjeVesti;
 
     public static void svuciVesti(int brojStrane){
-        try {
-            new JSONVesti().execute(new URL("http://fonis.rs/api/get_posts/?page=" + brojStrane));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+            new JSONVesti().execute("http://fonis.rs/api/get_posts/?page=" + brojStrane);
     }
-    public static Integer svuciBrojVesti(){
-        try{
-           return new JSONBrojVesti().execute(new URL("http://fonis.rs/api/get_posts")).get();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+    public static LinkedList<Vest> svuciNoveVesti(){
+        try {
+            return new JSONVesti().execute("http://fonis.rs/api/get_posts").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -44,23 +38,52 @@ public abstract class Vesti {
         }
         return null;
     }
-    private static class JSONVesti extends AsyncTask<URL,String, Void>{
+    public static Integer svuciBrojVesti(){
+        try{
+            return new JSONBrojVesti().execute("http://fonis.rs/api/get_posts").get();
+        }  catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static class JSONVesti extends AsyncTask<String,String, LinkedList<Vest>>{
         HttpURLConnection konekcija=null;
         String tekst=null;
         BufferedReader in=null;
         @Override
-        protected Void doInBackground(URL... params) {
-            String tekstJSON=procitajVesti(params[0]);
-            napraviVesti(tekstJSON);
-            for (Vest v:vestiLista
-                    ) {
-                Log.d("duka",v.toString());
+        protected LinkedList<Vest> doInBackground(String... params) {
+            String tekstJSON;
+            if(params[0]!=null) {
+                tekstJSON = procitajVesti(params[0]);
+                napraviVesti(tekstJSON);
             }
+            else {
+                tekstJSON = procitajVesti(params[0]);
+                napraviVesti(tekstJSON);
+                return vratiNoveVesti();
+            }
+
+//            for (Vest v:vestiLista
+//                    ) {
+//                Log.d("duka",v.toString());
+//            }
             return null;
         }
-        private String procitajVesti(URL url){
+        private LinkedList<Vest> vratiNoveVesti() {
+            LinkedList<Vest> lista=new LinkedList<>();
+            for (Vest v:vestiLista
+                 ) {
+                if(v.getDatum().after(datumPoslednjeVesti)){
+                    lista.add(v);
+                }
+            }
+            return lista;
+        }
+        private String procitajVesti(String urlS){
             try {
-
+                URL url=new URL(urlS);
                 konekcija=(HttpURLConnection) url.openConnection();
                 konekcija.connect();
                 in=new BufferedReader(new InputStreamReader(konekcija.getInputStream()));
@@ -88,6 +111,7 @@ public abstract class Vesti {
             }
             return tekst;
         }
+
         private void napraviVesti(String tekstJSON){
             try {
                 if(tekstJSON==null)return;
@@ -132,18 +156,18 @@ public abstract class Vesti {
             return kategorije;
         }
     }
-    private static class JSONBrojVesti extends AsyncTask<URL,String,Integer>{
+    private static class JSONBrojVesti extends AsyncTask<String,String,Integer>{
         HttpURLConnection konekcija=null;
         String tekst=null;
         BufferedReader in=null;
         @Override
-        protected Integer doInBackground(URL... params) {
+        protected Integer doInBackground(String... params) {
             return procitajBrojVesti(params[0]);
 
         }
-        private Integer procitajBrojVesti(URL url){
+        private Integer procitajBrojVesti(String urlS){
             try {
-
+                URL url=new URL(urlS);
                 konekcija=(HttpURLConnection) url.openConnection();
                 konekcija.connect();
                 in=new BufferedReader(new InputStreamReader(konekcija.getInputStream()));
