@@ -1,7 +1,10 @@
 package com.vesti.fonis.fonisvesti;
 
+import android.content.Intent;
 import android.media.Image;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -88,5 +91,19 @@ public class Vest {
         }
         return naslov +" "+tekst+" "+datum.getTime()+" "+url+";"+kategorije;
     }
+
+    Button shareDugme = (Button) findViewById(R.id.shareDugme);                                     //Poštovani, ovaj kod u mojoj demo aplikaciji radi
+                                                                                                    //Ne znam kako, a ni zašto
+    shareDugme.setOnClickListener(new View.OnClickListener(){                                       //Nadam se da nisam napravio glupost sa ovim objektom shareDugme
+        public void onClick(View v){                                                                //Umesto da napravim metodu share
+            Intent share = new Intent(android.content.Intent.ACTION_SEND);
+            share.setType("text/plain");                                                            //Nemojte mi zameriti
+            share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);                             //Na greskama se uci sto znaci da cu ja jednog dana biti najpametniji he he
+            share.putExtra(Intent.EXTRA_TEXT, naslov + "\n" + url);                                 //Yours sincerely
+            startActivity(Intent.createChooser(share, "Podelite ovaj sadržaj"));                    //Stefan
+        }
+
+    });
+
 }
 
