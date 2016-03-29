@@ -12,21 +12,24 @@
     <ImageButton
         android:layout_width="150dip"
         android:layout_height="150dip"
-        android:id="@+id/ibtnVesti" />
+        android:id="@+id/ibtnVesti"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="54dp" />
 
     <ImageButton
         android:layout_width="150dip"
         android:layout_height="150dip"
         android:id="@+id/ibtnONama"
-        android:layout_alignTop="@+id/ibtnVesti"
+        android:layout_above="@+id/ibtnMSDNAA"
         android:layout_toEndOf="@+id/ibtnVesti" />
 
     <ImageButton
         android:layout_width="150dip"
         android:layout_height="150dip"
         android:id="@+id/ibtnProjekti"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/ibtnONama" />
+        android:layout_below="@+id/ibtnVesti"
+        android:layout_alignStart="@+id/ibtnVesti" />
 
     <ImageButton
         android:layout_width="150dip"
@@ -36,31 +39,27 @@
         android:layout_toEndOf="@+id/ibtnProjekti" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="face"
-        android:id="@+id/btnFace"
-        android:layout_marginBottom="27dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/btnInstagram" />
+        android:text="Facebook"
+        android:id="@+id/btnFacebook"
+        android:layout_below="@+id/ibtnProjekti"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Twitter"
+        android:id="@+id/btnTwitter"
+        android:layout_alignTop="@+id/btnFacebook"
+        android:layout_toEndOf="@+id/btnFacebook" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Instagram"
         android:id="@+id/btnInstagram"
-        android:layout_alignBaseline="@+id/btnFace"
-        android:layout_alignBottom="@+id/btnFace" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="twitter"
-        android:id="@+id/btnTwitter"
-        android:layout_alignTop="@+id/btnFace"
-        android:layout_toEndOf="@+id/btnFace" />
-
+        android:layout_alignBottom="@+id/btnTwitter"
+        android:layout_alignEnd="@+id/ibtnMSDNAA" />
 </RelativeLayout>
