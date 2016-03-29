@@ -97,7 +97,7 @@ public class Vest {
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         share.putExtra(Intent.EXTRA_TEXT, naslov + "\n" + url);
-        startActivity(Intent.createChooser(share, "Podelite ovaj sadržaj"));                  
+        startActivity(Intent.createChooser(share, "Podelite ovaj sadržaj"));
     }
 
 }
