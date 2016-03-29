@@ -37,7 +37,8 @@ public class Vest {
         this.kategorije = kategorije;
         slike=new LinkedList<>();
         parsiraj();
-        izvadiSlike();
+      //  izvadiSlike();
+        if(slike.size()>=1)
         glavnaSlika=slike.get(0);
     }
 

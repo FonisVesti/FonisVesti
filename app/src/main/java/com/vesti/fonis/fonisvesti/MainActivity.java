@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,9 @@ public class MainActivity extends ActionBarActivity {
         onClickIbtnONamaListener();
         onClickIbtnProjektiListener();
         onClickIbtnMSDNAAListener();
+        Vesti.svuciVesti(1);
+        int brojVesti=Vesti.svuciBrojVesti();
+       Log.d("vesti", brojVesti+"");
 ////        Button button1 = (Button) findViewById(R.id.button1);
 ////        Button button2 = (Button) findViewById(R.id.button2);
 ////        Button button3 = (Button) findViewById(R.id.button3);

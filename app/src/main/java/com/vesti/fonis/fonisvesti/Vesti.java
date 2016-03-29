@@ -15,21 +15,36 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Dusan on 19.3.2016..
  */
 public abstract class Vesti {
     public static List<Vest> vestiLista=new ArrayList<>();
-    public static void svuciVesti(){
+    public static int brojVesti;
+
+
+    public static void svuciVesti(int brojStrane){
         try {
-            new JSON().execute(new URL("https://epos-dulerad94.c9users.io/api/get_posts/?v=8cee5050eeb7"));
+            new JSONVesti().execute(new URL("http://fonis.rs/api/get_posts/?page=" + brojStrane));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
-
-    private static class JSON extends AsyncTask<URL,String, Void>{
+    public static Integer svuciBrojVesti(){
+        try{
+           return new JSONBrojVesti().execute(new URL("http://fonis.rs/api/get_posts")).get();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static class JSONVesti extends AsyncTask<URL,String, Void>{
         HttpURLConnection konekcija=null;
         String tekst=null;
         BufferedReader in=null;
@@ -76,7 +91,9 @@ public abstract class Vesti {
         private void napraviVesti(String tekstJSON){
             try {
                 if(tekstJSON==null)return;
-                JSONArray vesti=new JSONObject(tekstJSON).getJSONArray("posts");
+                JSONObject sadrzajStrane=new JSONObject(tekstJSON);
+                brojVesti=sadrzajStrane.getInt("count_total");
+                JSONArray vesti=sadrzajStrane.getJSONArray("posts");
                 for(int i=0;i<vesti.length();i++){
                     JSONObject vest=vesti.getJSONObject(i);
                     int id=vest.getInt("id");
@@ -115,5 +132,45 @@ public abstract class Vesti {
             return kategorije;
         }
     }
+    private static class JSONBrojVesti extends AsyncTask<URL,String,Integer>{
+        HttpURLConnection konekcija=null;
+        String tekst=null;
+        BufferedReader in=null;
+        @Override
+        protected Integer doInBackground(URL... params) {
+            return procitajBrojVesti(params[0]);
 
+        }
+        private Integer procitajBrojVesti(URL url){
+            try {
+
+                konekcija=(HttpURLConnection) url.openConnection();
+                konekcija.connect();
+                in=new BufferedReader(new InputStreamReader(konekcija.getInputStream()));
+                tekst=in.readLine();
+                return new JSONObject(tekst).getInt("count_total");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if(konekcija!=null)
+                    konekcija.disconnect();
+                try {
+                    if(in!=null)
+                        in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+        }
+    }
 }
