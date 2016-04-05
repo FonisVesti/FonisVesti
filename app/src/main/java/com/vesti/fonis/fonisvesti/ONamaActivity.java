@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 /**
  * Created by Dusan on 24.3.2016..
  */
-public class ONamaActivity extends ActionBarActivity {
+public class ONamaActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

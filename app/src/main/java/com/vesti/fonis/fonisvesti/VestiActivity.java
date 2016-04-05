@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 /**
  * Created by Dusan on 24.3.2016..
  */
-public class VestiActivity extends ActionBarActivity{
+public class VestiActivity extends BaseActivity{
     int brojStrane;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
