@@ -1,73 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:weightSum="20"
     tools:context="com.vesti.fonis.fonisvesti.MainActivity">
 
-    <ImageButton
-        android:layout_width="150dip"
-        android:layout_height="150dip"
-        android:id="@+id/ibtnVesti"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="54dp" />
+    <LinearLayout
+        android:id="@+id/llVesti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-    <ImageButton
-        android:layout_width="150dip"
-        android:layout_height="150dip"
-        android:id="@+id/ibtnONama"
-        android:layout_above="@+id/ibtnMSDNAA"
-        android:layout_toEndOf="@+id/ibtnVesti" />
+        android:orientation="vertical"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="50%">
 
-    <ImageButton
-        android:layout_width="150dip"
-        android:layout_height="150dip"
-        android:id="@+id/ibtnProjekti"
-        android:layout_below="@+id/ibtnVesti"
-        android:layout_alignStart="@+id/ibtnVesti" />
+        <RelativeLayout
+            android:id="@+id/rlVesti"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/main_button_bg"
+            android:gravity="center">
 
-    <ImageButton
-        android:layout_width="150dip"
-        android:layout_height="150dip"
-        android:id="@+id/ibtnMSDNAA"
-        android:layout_alignTop="@+id/ibtnProjekti"
-        android:layout_toEndOf="@+id/ibtnProjekti" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/vesti" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VESTI"
+                    android:textColor="@color/main_button_text"
+                    android:textSize="22dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/main_divider_bg"
+        android:orientation="horizontal"
+        android:id="@+id/divider"
+        android:layout_below="@id/llVesti"/>
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/main_divider_bg"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        app:layout_heightPercent="80%"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/llMsdnaa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="50%"
+        android:layout_toRightOf="@id/llVesti">
+
+        <RelativeLayout
+            android:id="@+id/rlMsdnaa"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/main_button_bg"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/msdnaa" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MSDNAA"
+                    android:textColor="@color/main_button_text"
+                    android:textSize="22dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llProjekti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="50%"
+        android:layout_below="@id/llVesti">
+
+        <RelativeLayout
+            android:id="@+id/rlProjekti"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/main_button_bg"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/projekti" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/main_text_bottom_margin"
+                    android:text="PROJEKTI"
+                    android:textColor="@color/main_button_text"
+                    android:textSize="22dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llOnama"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="50%"
+        android:layout_below="@id/llVesti"
+        android:layout_toRightOf="@id/llProjekti">
+
+        <RelativeLayout
+            android:id="@+id/rlOnama"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/main_button_bg"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/onama" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/main_text_bottom_margin"
+                    android:text="O NAMA"
+                    android:textColor="@color/main_button_text"
+                    android:textSize="22dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/main_divider_bg"
+        android:orientation="horizontal"
+        android:id="@+id/divider1"
+        android:layout_below="@id/llProjekti"/>
+
+    <LinearLayout
+        android:id="@+id/llSocial"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Facebook"
-        android:id="@+id/btnFacebook"
-        android:layout_below="@+id/ibtnProjekti"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_below="@id/llProjekti"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/main_social_buttons_margin"
+        android:paddingStart="@dimen/main_social_buttons_margin"
+        app:layout_heightPercent="20%">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Twitter"
-        android:id="@+id/btnTwitter"
-        android:layout_alignTop="@+id/btnFacebook"
-        android:layout_toEndOf="@+id/btnFacebook" />
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_social_buttons_margin"
+            android:layout_marginRight="@dimen/main_social_buttons_margin"
+            android:layout_weight="1"
+            android:background="@color/bg_transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/facebook" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Instagram"
-        android:id="@+id/btnInstagram"
-        android:layout_alignBottom="@+id/btnTwitter"
-        android:layout_alignEnd="@+id/ibtnMSDNAA" />
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_social_buttons_margin"
+            android:layout_marginRight="@dimen/main_social_buttons_margin"
+            android:layout_weight="1"
+            android:background="@color/bg_transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/twitter" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Podesavanja"
-        android:id="@+id/btnPreferences"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_social_buttons_margin"
+            android:layout_marginRight="@dimen/main_social_buttons_margin"
+            android:layout_weight="1"
+            android:background="@color/bg_transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/instagram" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_social_buttons_margin"
+            android:layout_marginRight="@dimen/main_social_buttons_margin"
+            android:layout_weight="1"
+            android:background="@color/bg_transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/youtube" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_social_buttons_margin"
+            android:layout_marginRight="@dimen/main_social_buttons_margin"
+            android:layout_weight="1"
+            android:background="@color/bg_transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/linkedin" />
+    </LinearLayout>
+
+</android.support.percent.PercentRelativeLayout>
