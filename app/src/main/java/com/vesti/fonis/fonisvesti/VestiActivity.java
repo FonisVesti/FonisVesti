@@ -3,8 +3,6 @@ package com.vesti.fonis.fonisvesti;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.ArrayAdapter;
 
 /**
  * Created by Dusan on 24.3.2016..
@@ -35,7 +33,7 @@ public class VestiActivity extends BaseActivity{
     protected void onStart() {
         super.onStart();
         brojStrane=1;
-        Vesti.svuciVesti(brojStrane);
+        News.downloadNews(brojStrane);
     }
 
     // TODO - implement searchNews method
