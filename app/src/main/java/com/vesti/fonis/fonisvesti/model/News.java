@@ -26,7 +26,13 @@ import java.util.List;
 public abstract class News {
     public static List<OnePieceOfNews> newsList =new ArrayList<>();
     public static final String NEWS_URL = "http://fonis.rs/api/get_posts/?page=";
-
+    public static OnePieceOfNews findOnePieceOfNewsByID(int id){
+        for (OnePieceOfNews v: newsList
+                ) {
+            if(v.getId()==id) return v;
+        }
+        return null;
+    }
     public static void downloadNews(int pageNumber){
         try {
             new JSONNews().execute(new URL(News.NEWS_URL+ pageNumber));

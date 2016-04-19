@@ -1,8 +1,6 @@
 package com.vesti.fonis.fonisvesti;
 
 import android.annotation.SuppressLint;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +21,6 @@ import android.widget.ListView;
 
 import com.vesti.fonis.fonisvesti.adapter.ListViewAdapter;
 import com.vesti.fonis.fonisvesti.model.News;
-import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.utils.Util;
 
 
@@ -36,8 +33,6 @@ public class NewsActivity extends BaseActivity {
     private ListViewAdapter mAdapter;
     private Button btnLoadMore;
 
-    private int brojStrane;
-    private News[] searchResults;
 
     // Flag for current page
     int mCurrentPage ;
@@ -49,22 +44,23 @@ public class NewsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vesti);
+        if(News.newsList.isEmpty()) {
+            // TODO - handle events when user press back and close the dialog
+            mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
 
-        // TODO - handle events when user press back and close the dialog
-        mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
+            // Fire the downloader
+            mCurrentPage = 1;
 
-        // Fire the downloader
-        mCurrentPage = 1;
-        downloadNews(new int[]{mCurrentPage, ++mCurrentPage});
+            downloadNews(new int[]{mCurrentPage, ++mCurrentPage});
 
-        mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
-                stopService(downloadIntent);
-            }
-        });
-
+            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
+                    stopService(downloadIntent);
+                }
+            });
+        }
         // Init elements
         mListView = (ListView) findViewById(R.id.list);
         btnLoadMore = new Button(this);
@@ -98,13 +94,14 @@ public class NewsActivity extends BaseActivity {
     private void downloadNews(int[] pages) {
         Intent downloadIntent = new Intent(this, NewsDownloaderService.class);
         downloadIntent.putExtra("pageNumber", pages);
-        downloadIntent.putExtra("receiver", new VestiDownloadReceiver(new Handler()));
+        downloadIntent.putExtra("caller",NewsDownloaderService.NEWS_ACTIVITY_CALLER);
+        downloadIntent.putExtra("receiver", new NewsDownloadReceiver(new Handler()));
         startService(downloadIntent);
     }
 
     @SuppressLint("ParcelCreator")
-    private class VestiDownloadReceiver extends ResultReceiver {
-        public VestiDownloadReceiver(Handler handler) {
+    private class NewsDownloadReceiver extends ResultReceiver {
+        public NewsDownloadReceiver(Handler handler) {
             super(handler);
         }
 

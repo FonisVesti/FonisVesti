@@ -28,12 +28,12 @@ public class MainActivity extends BaseActivity {
         onClickIbtnONamaListener();
         onClickIbtnProjektiListener();
         onClickIbtnMSDNAAListener();
-        News.downloadNews(1);
-        ArrayList<OnePieceOfNews> proba= News.searchNews("Philip");
-        Log.d("vesti",proba.size()+"");
-        for (int i=0;i<proba.size();i++){
-            Log.d("vesti",proba.get(i).toString());
-        }
+//        News.downloadNews(1);
+//        ArrayList<OnePieceOfNews> proba= News.searchNews("Philip");
+//        Log.d("vesti",proba.size()+"");
+//        for (int i=0;i<proba.size();i++){
+//            Log.d("vesti",proba.get(i).toString());
+//        }
         //int brojVesti=News.svuciBrojVesti();
         //Log.d("vesti", brojVesti + "");
     }

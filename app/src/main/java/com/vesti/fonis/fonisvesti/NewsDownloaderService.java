@@ -21,7 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 
 /**
  * Created by Sarma on 4/18/2016.
@@ -29,12 +28,13 @@ import java.util.LinkedList;
 public class NewsDownloaderService extends IntentService {
     public static final int UPDATE_PROGRESS = 8344;
     private static int mDownloadedPages = 0;
-    private HttpURLConnection konekcija = null;
-    private String tekst = null;
+    public static final int NEWS_ACTIVITY_CALLER=0;
+    public static final int NEWS_VIEW_ACTIVITY_CALLER=1;
+    public static final int IMAGE_CALLER=2;
+    private HttpURLConnection connection = null;
+    private String text = null;
     private BufferedReader in = null;
     private URL url;
-    private String pageNumber;
-    private ResultReceiver receiver;
 
     public NewsDownloaderService() {
         super("NewsDownloaderService");
@@ -42,6 +42,34 @@ public class NewsDownloaderService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        switch (intent.getExtras().getInt("caller")){
+            case NEWS_ACTIVITY_CALLER:{
+                downloadNews(intent);
+                break;
+            }
+            case NEWS_VIEW_ACTIVITY_CALLER:{
+                downloadOnePieceOfNews(intent);
+                break;
+            }
+        }
+
+    }
+    private void downloadOnePieceOfNews(Intent intent){
+        int id=intent.getExtras().getInt("onePieceOfNewsId");
+        ResultReceiver receiver = intent.getParcelableExtra("receiver");
+        try {
+            url=new URL(OnePieceOfNews.ONE_PIECE_OF_NEWS_URL+id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String textJSON=downloadJSON(url);
+        setText(id,textJSON);
+
+        Bundle resultData = new Bundle();
+        resultData.putInt("progress", 100);
+        receiver.send(UPDATE_PROGRESS, resultData);
+    }
+    private void downloadNews(Intent intent){
         int[] pageNumber = intent.getExtras().getIntArray("pageNumber");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
@@ -56,9 +84,9 @@ public class NewsDownloaderService extends IntentService {
 
             //Downloading news and making news objects
             // TODO - list of news is now only in memory.. cache it later
-            String tekstJSON = procitajVesti(url);
-            napraviVesti(tekstJSON);
-            News.demoNews(this);
+            String textJSON = downloadJSON(url);
+            makeTheNews(textJSON);
+            //       News.demoNews(this);
         }
         for (int i = 0; i < News.newsList.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
@@ -68,27 +96,26 @@ public class NewsDownloaderService extends IntentService {
         resultData.putInt("progress", 100);
         receiver.send(UPDATE_PROGRESS, resultData);
     }
-
-    private String procitajVesti(URL url) {
+    private String downloadJSON(URL url) {
         try {
-            konekcija = (HttpURLConnection) url.openConnection();
-            konekcija.connect();
-            in = new BufferedReader(new InputStreamReader(konekcija.getInputStream()));
-            tekst = "";
+            connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            text = "";
             boolean procitano = false;
             while (!procitano) {
                 String red = in.readLine();
                 procitano = (red == null) ? true : false;
-                tekst += red;
+                text += red;
             }
-            return tekst;
+            return text;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }  finally {
-            if (konekcija != null)
-                konekcija.disconnect();
+            if (connection != null)
+                connection.disconnect();
             try {
                 if (in != null)
                     in.close();
@@ -96,10 +123,10 @@ public class NewsDownloaderService extends IntentService {
                 e.printStackTrace();
             }
         }
-        return tekst;
+        return text;
     }
 
-    private void napraviVesti(String tekstJSON) {
+    private void makeTheNews(String tekstJSON) {
         try {
             if (tekstJSON == null) return;
             JSONObject sadrzajStrane = new JSONObject(tekstJSON);
@@ -109,23 +136,31 @@ public class NewsDownloaderService extends IntentService {
                 int id = vest.getInt("id");
                 String naslov = vest.getString("title");
                 String tekstHTML = vest.getString("content");
-                GregorianCalendar datum = napraviDatum(vest.getString("date"));
+                GregorianCalendar datum = createDate(vest.getString("date"));
                 String url = vest.getString("url");
-                LinkedList<String> kategorije = izvuciKategorije(vest.getJSONArray("categories"));
                 OnePieceOfNews v = new OnePieceOfNews(id, naslov, datum, tekstHTML, url);
-
-                // TODO - redefine equals method
                 if (!News.newsList.contains(v))
                     News.newsList.add(v);
             }
             mDownloadedPages++;
-            Log.d(Util.TAG,"napraviVesti: page downloaded: "+mDownloadedPages);
+            Log.d(Util.TAG,"makeTheNews: page downloaded: "+mDownloadedPages);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+    private void setText(int id, String textJSON){
+        try {
+            JSONObject postJSON=new JSONObject(textJSON).getJSONObject("post");
+            OnePieceOfNews post=News.findOnePieceOfNewsByID(id);
+            post.setTextHTML(postJSON.getString("content"));
+            post.parse();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-    private GregorianCalendar napraviDatum(String datumS) {
+    }
+
+    private GregorianCalendar createDate(String datumS) {
         int godina = Integer.parseInt(datumS.substring(0, 4));
         int mesec = Integer.parseInt(datumS.substring(5, 7)) - 1;
         int dan = Integer.parseInt(datumS.substring(8, 10));
@@ -135,19 +170,7 @@ public class NewsDownloaderService extends IntentService {
         return new GregorianCalendar(godina, mesec, dan, sat, minut, sekund);
     }
 
-    private LinkedList<String> izvuciKategorije(JSONArray kategorijeJSON) {
-        LinkedList<String> kategorije = new LinkedList<>();
-        for (int j = 0; j < kategorijeJSON.length(); j++) {
-            try {
-                JSONObject kategorijaJSON = kategorijeJSON.getJSONObject(j);
-                String kategorija = kategorijaJSON.getString("title");
-                kategorije.add(kategorija);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return kategorije;
-    }
+
 
     @Override
     public void onDestroy() {
