@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -43,24 +44,21 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // TODO - add viewholder
-        if (position != 0) {
+        if (getItemViewType(position) != 0) {
             if (convertView == null) {
 
-                convertView = parent.inflate(mContext, R.layout.list_item, null);
+                convertView = li.inflate( R.layout.list_item, null);
             }
-
             TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-
-            tvData.setText((position + 1) + ". " + mFilteredData.get(position).getTitle());
+            tvData.setText(mFilteredData.get(position).getTitle());
         } else {
             if (convertView == null) {
-                convertView = parent.inflate(mContext, R.layout.first_list_item, null);
+                convertView = li.inflate( R.layout.first_list_item, null);
             }
-
             TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-
-            tvData.setText((position + 1) + ". " + mFilteredData.get(position).getTitle());
+            tvData.setText(mFilteredData.get(position).getTitle());
         }
 
         return convertView;

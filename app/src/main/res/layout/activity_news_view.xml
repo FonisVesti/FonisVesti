@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 android:id="@+id/tvNewsTitle"
-                android:textSize="42dp"
+                android:textSize="36dp"
                 android:layout_margin="10dp" />
 
             <TextView
@@ -35,7 +35,7 @@
                 android:id="@+id/tvNewsDate"
                 android:layout_gravity="right"
                 android:textSize="18dp"
-                android:layout_margin="5dp" />
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"

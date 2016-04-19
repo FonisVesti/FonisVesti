@@ -33,7 +33,7 @@
         jar="W:\Android\StudioProjects\FonisVesti\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="f7571e1dc2ffd80b0f10aba1b3276d51afd90f7c">
+        sha1="2e48654590ff1652e6cb0517384218ee739b3907">
         <dex dex="W:\Android\StudioProjects\FonisVesti\app\build\intermediates\pre-dexed\debug\instant-run_51b290146755a3d4dc1d5ad54b4f37ec6dcf8269.jar" />
     </item>
     <item
@@ -61,7 +61,7 @@
         jar="W:\Android\StudioProjects\FonisVesti\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="f62bb7196183514d61fc89cc481497c3e7cb4d93">
+        sha1="523b3a42f02b88196965242261896058e8ead1e3">
         <dex dex="W:\Android\StudioProjects\FonisVesti\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_00513951b0a0112f4767faf3bdcc4f6375e7c8a0.jar" />
     </item>
     <item

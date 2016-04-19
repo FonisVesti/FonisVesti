@@ -1,6 +1,7 @@
 package com.vesti.fonis.fonisvesti;
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +35,8 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsDate.setText(new SimpleDateFormat("dd.MM.yyyy.").format(news.getDate().getTime()).toString());
         tvNewsTitle.setText(news.getTitle());
         tvNewsText.setText(news.getTextHTML());
+        tvNewsText.setMovementMethod(LinkMovementMethod.getInstance());
+
 
     }
 }

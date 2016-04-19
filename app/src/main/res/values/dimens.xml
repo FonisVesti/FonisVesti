@@ -8,5 +8,10 @@
     <dimen name="main_social_buttons_margin">8dp</dimen>
     <dimen name="news_normal_height">80dp</dimen>
 
+    <!-- Button long dimens -->
+    <dimen name="btn_long_side_padding">40dp</dimen>
+    <dimen name="btn_long_text_size">18dp</dimen>
+    <dimen name="btn_long_width">220dp</dimen>
+
 
 </resources>

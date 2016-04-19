@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/main_button_bg"
+            android:background="@drawable/main_b_bg"
             android:gravity="center">
 
             <LinearLayout
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/main_button_bg"
+            android:background="@drawable/main_b_bg"
             android:gravity="center">
 
             <LinearLayout
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/main_button_bg"
+            android:background="@drawable/main_b_bg"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -169,7 +169,7 @@
             android:id="@+id/rlOnama"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/main_button_bg"
+            android:background="@drawable/main_b_bg"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -226,7 +226,7 @@
             android:layout_weight="1"
             android:background="@color/bg_transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/facebook" />
+            android:src="@drawable/main_b_social_fb" />
 
         <ImageButton
             android:id="@+id/imageButton5"
@@ -237,7 +237,7 @@
             android:layout_weight="1"
             android:background="@color/bg_transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/twitter" />
+            android:src="@drawable/main_b_social_twitter" />
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -248,7 +248,7 @@
             android:layout_weight="1"
             android:background="@color/bg_transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/instagram" />
+            android:src="@drawable/main_b_social_instagram" />
 
         <ImageButton
             android:id="@+id/imageButton2"
@@ -259,7 +259,7 @@
             android:layout_weight="1"
             android:background="@color/bg_transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/youtube" />
+            android:src="@drawable/main_b_social_yt" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -270,7 +270,7 @@
             android:layout_weight="1"
             android:background="@color/bg_transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/linkedin" />
+            android:src="@drawable/main_b_social_li" />
     </LinearLayout>
 
 </android.support.percent.PercentRelativeLayout>
