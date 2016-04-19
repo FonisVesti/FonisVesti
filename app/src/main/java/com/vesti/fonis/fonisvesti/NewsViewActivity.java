@@ -43,7 +43,7 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsDate.setText(new SimpleDateFormat("dd.MM.yyyy.").format(news.getDate().getTime()).toString());
         tvNewsTitle.setText(news.getTitle());
         String text=news.getText();
-
+        tvNewsText.setText("");
         if(text.toLowerCase().endsWith("read more")){
             mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
