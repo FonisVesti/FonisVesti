@@ -1,9 +1,11 @@
 package com.vesti.fonis.fonisvesti.adapter;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,25 +13,28 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.R;
-import com.vesti.fonis.fonisvesti.Vest;
+import com.vesti.fonis.fonisvesti.utils.Util;
 
 public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     private Context mContext;
-    private List<Vest> mData;
+    private List<OnePieceOfNews> mOriginalData;
+    private List<OnePieceOfNews> mFilteredData;
 
-    public ListViewAdapter(Context context, List<Vest> newsList) {
+    public ListViewAdapter(Context context, List<OnePieceOfNews> newsList) {
         mContext = context;
-        mData = newsList;
+        mOriginalData = newsList;
+        mFilteredData = newsList;
     }
 
     public int getCount() {
-        return mData.size();
+        return mFilteredData.size();
     }
 
     public Object getItem(int position) {
-        return mData.get(position);
+        return mFilteredData.get(position);
     }
 
     public long getItemId(int position) {
@@ -38,6 +43,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        // TODO - add viewholder
         if (position != 0) {
             if (convertView == null) {
 
@@ -46,7 +52,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
             TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
 
-            tvData.setText((position + 1) + ". " + mData.get(position).getNaslov());
+            tvData.setText((position + 1) + ". " + mFilteredData.get(position).getTitle());
         } else {
             if (convertView == null) {
                 convertView = parent.inflate(mContext, R.layout.first_list_item, null);
@@ -54,7 +60,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
             TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
 
-            tvData.setText((position + 1) + ". " + mData.get(position).getNaslov());
+            tvData.setText((position + 1) + ". " + mFilteredData.get(position).getTitle());
         }
 
         return convertView;
@@ -72,6 +78,44 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public Filter getFilter() {
-        return null;
+        Filter filter = new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+
+                FilterResults results = new FilterResults();
+
+                if (constraint.toString().isEmpty()){
+                    Log.d(Util.TAG,"Filtered string is empty.");
+                    results.values = mOriginalData;
+                    results.count = mOriginalData.size();
+                }
+
+                // removes all extra space between words
+                String filterString = constraint.toString().toLowerCase().replaceAll("\\s+", " ");
+
+                // Search logic
+                final List<OnePieceOfNews> list = new ArrayList<>();
+                for (int i = 0; i < mOriginalData.size(); i++) {
+                    if (mOriginalData.get(i).isSubstring(filterString))
+                        list.add(mOriginalData.get(i));
+                }
+
+                results.values = list;
+                results.count = list.size();
+
+                return results;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mFilteredData = (List<OnePieceOfNews>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+
+
+        return filter;
     }
 }

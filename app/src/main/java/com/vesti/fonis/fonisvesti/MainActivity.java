@@ -12,9 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.vesti.fonis.fonisvesti.model.News;
+import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
+
 import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
 
     private static RelativeLayout mButton;
     @Override
@@ -41,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.vesti.fonis.fonisvesti.VestiActivity");
+                        Intent intent = new Intent("com.vesti.fonis.fonisvesti.NewsActivity");
                         startActivity(intent);
                     }
                 }
@@ -54,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.vesti.fonis.fonisvesti.ONamaActivity");
+                        Intent intent = new Intent("com.vesti.fonis.fonisvesti.AboutActivity");
                         startActivity(intent);
                     }
                 }
@@ -67,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.vesti.fonis.fonisvesti.ProjektiActivity");
+                        Intent intent = new Intent("com.vesti.fonis.fonisvesti.ProjectsActivity");
                         startActivity(intent);
                     }
                 }
@@ -104,14 +107,6 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-
-        // TODO - add search dialog if there's no space for searchview
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         return true;
     }
 

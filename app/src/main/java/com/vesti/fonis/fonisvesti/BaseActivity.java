@@ -3,6 +3,7 @@ package com.vesti.fonis.fonisvesti;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.vesti.fonis.fonisvesti.utils.Preferences;
@@ -11,7 +12,7 @@ import com.vesti.fonis.fonisvesti.utils.Util;
 /**
  * Created by Sarma on 4/4/2016.
  */
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

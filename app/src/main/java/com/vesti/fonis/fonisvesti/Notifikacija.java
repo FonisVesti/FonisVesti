@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
+
 /**
  * Created by Dusan on 2.4.2016..
  */

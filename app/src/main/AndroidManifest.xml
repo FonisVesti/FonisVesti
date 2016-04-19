@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VestiActivity">
+        <activity android:name=".NewsActivity">
             <intent-filter>
-                <action android:name="com.vesti.fonis.fonisvesti.VestiActivity" />
+                <action android:name="com.vesti.fonis.fonisvesti.NewsActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -34,9 +34,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ONamaActivity">
+        <activity android:name=".AboutActivity">
             <intent-filter>
-                <action android:name="com.vesti.fonis.fonisvesti.ONamaActivity" />
+                <action android:name="com.vesti.fonis.fonisvesti.AboutActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -48,9 +48,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProjektiActivity">
+        <activity android:name=".ProjectsActivity">
             <intent-filter>
-                <action android:name="com.vesti.fonis.fonisvesti.ProjektiActivity" />
+                <action android:name="com.vesti.fonis.fonisvesti.ProjectActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -63,7 +63,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <service android:name=".VestiDownloaderService"/>
+        <service android:name=".NewsDownloaderService"/>
 
     </application>
 
