@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context="com.vesti.fonis.fonisvesti.MSDNAASumbitActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnRegAcc"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Da bi registrovali svoj msdnaa nalog potrebno je da popunite formu i pošaljete fotografiju prve strane indeksa."
+            android:textColor="@color/main_button_text"
+            android:textSize="16dp" />
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/MsdnaaInputForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView7"
+
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_people" />
+
+            <EditText
+                android:id="@+id/textView9"
+                style="@style/MsdnaaInputFormText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="Radovan Ristovic" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MsdnaaInputForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView8"
+
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_agenda" />
+
+            <EditText
+                android:id="@+id/textView10"
+                style="@style/MsdnaaInputFormText"
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MsdnaaInputForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView9"
+
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_email" />
+
+            <EditText
+                android:id="@+id/textView11"
+                style="@style/MsdnaaInputFormText"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp">
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/button3"
+                android:background="@drawable/msdnaa_b_gallery"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btnUploadPic" />
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/btnUploadPic"
+                android:background="@drawable/msdnaa_b_uploadpic"
+                android:layout_centerInParent="true" />
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/button4"
+                android:background="@drawable/msdnaa_b_camera"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/btnUploadPic" />
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="POŠALJI"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+            style="@style/ButtonLongStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp" />
+
+    </RelativeLayout>
+</LinearLayout>

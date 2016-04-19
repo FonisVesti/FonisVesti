@@ -84,6 +84,7 @@ public class NewsDownloaderService extends IntentService {
 
             //Downloading news and making news objects
             // TODO - list of news is now only in memory.. cache it later
+
             String textJSON = downloadJSON(url);
             makeTheNews(textJSON);
             //       News.demoNews(this);

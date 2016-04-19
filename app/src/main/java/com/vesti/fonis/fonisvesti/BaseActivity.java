@@ -1,8 +1,6 @@
 package com.vesti.fonis.fonisvesti;
 
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 

@@ -12,13 +12,6 @@
         <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <!-- Need both android:background and background items. The former is for newer versions
-         of android that support ActionBar natively. The latter is for older android versions-->
-        <item name="android:background" tools:ignore="NewApi">@color/colorPrimaryDark</item>
-        <item name="background">@color/colorPrimaryDark</item>
-    </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
     </style>
@@ -27,6 +20,36 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <!-- Need both android:background and background items. The former is for newer versions
+         of android that support ActionBar natively. The latter is for older android versions-->
+        <item name="android:background" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="ButtonLongStyle">
+        <item name="android:paddingLeft">@dimen/btn_long_side_padding</item>
+        <item name="android:paddingRight">@dimen/btn_long_side_padding</item>
+        <item name="android:width">@dimen/btn_long_width</item>
+        <item name="android:background">@drawable/msdnaa_b_long</item>
+        <item name="android:textSize">@dimen/btn_long_text_size</item>
+        <item name="android:textColor">@drawable/msdnaa_long_text_color</item>
+    </style>
+
+    <style name="MsdnaaInputForm">
+        <item name="android:background">@drawable/msdnaa_inputform_bg</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
+
+    <style name="MsdnaaInputFormText">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+
+    <!-- FONTS -->
     <style name="FontStyle" />
 
     <style name="FontStyle.Small">

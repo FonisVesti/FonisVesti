@@ -40,13 +40,13 @@ public class OnePieceOfNews {
         this.title = naslov;
         this.date = datum;
         this.textHTML = tekstHTML;
-        this.url=url;
+        this.url = url;
 
-        images =new LinkedList<>();
+        images = new LinkedList<>();
         parse();
-      //  izvadiSlike();
-        if(images.size()>=1)
-        mainImg = images.get(0);
+        //  izvadiSlike();
+        if (images.size() >= 1)
+            mainImg = images.get(0);
     }
 
     public String getText() {
@@ -69,19 +69,20 @@ public class OnePieceOfNews {
         return textHTML;
     }
 
-    public boolean equals(Object o){
-        if (!(o instanceof OnePieceOfNews))return false;
-        OnePieceOfNews v=(OnePieceOfNews) o;
-        if(v.getId()!=id) return false;
+
+    public boolean equals(Object o) {
+        if (!(o instanceof OnePieceOfNews)) return false;
+        OnePieceOfNews v = (OnePieceOfNews) o;
+        if (v.getId() != id) return false;
         return true;
     }
 
-
     @Override
     public String toString() {
-        return title +" "+ text +" "+ date.getTime()+" "+url+";";
+        return title + " " + text + " " + date.getTime() + " " + url + ";";
     }
-    public boolean isSubstring(String text){
+
+    public boolean isSubstring(String text) {
         return this.text.contains(text) || this.title.contains(text);
     }
 }

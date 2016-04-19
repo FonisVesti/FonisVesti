@@ -5,9 +5,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +42,11 @@ public class NewsViewActivity extends BaseActivity {
         news = News.newsList.get(mNewsPosition);
         tvNewsDate.setText(new SimpleDateFormat("dd.MM.yyyy.").format(news.getDate().getTime()).toString());
         tvNewsTitle.setText(news.getTitle());
+
+        tvNewsText.setText(news.getTextHTML());
+        tvNewsText.setMovementMethod(LinkMovementMethod.getInstance());
+
+
         String text=news.getText();
         tvNewsText.setText("");
         if(text.toLowerCase().endsWith("read more")){
@@ -80,6 +85,7 @@ public class NewsViewActivity extends BaseActivity {
                 tvNewsText.setText(news.getText());
             }
         }
+
 
     }
 }

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#141516</color>
     <color name="colorPrimaryDark">#080808</color>
     <color name="colorAccent">#faa61a</color>
+    <color name="colorAccentTransp">#b2faa61a</color>
     <color name="bg_transparent">#00141515</color>
     <color name="main_button_text">#ffffff</color>
     <color name="main_button_bg_pressed">#535353</color>
