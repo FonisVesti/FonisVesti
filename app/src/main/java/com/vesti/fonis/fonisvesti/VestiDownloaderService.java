@@ -60,6 +60,7 @@ public class VestiDownloaderService extends IntentService {
             // TODO - list of news is now only in memory.. cache it later
             String tekstJSON = procitajVesti(url);
             napraviVesti(tekstJSON);
+            Vesti.demoNews();
         }
         for (int i = 0; i < Vesti.vestiLista.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + Vesti.vestiLista.get(i).toString());

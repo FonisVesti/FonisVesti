@@ -1,7 +1,9 @@
 package com.vesti.fonis.fonisvesti.adapter;
 
 import java.util.List;
+
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -36,18 +38,21 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(position != 0) {
-            if (convertView == null)
-                convertView = parent.inflate(mContext, R.layout.list_item, null);
+        if (position != 0) {
+            if (convertView == null) {
 
-            TextView tvData = (TextView) convertView.findViewById(R.id.tvData); // title
+                convertView = parent.inflate(mContext, R.layout.list_item, null);
+            }
+
+            TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
 
             tvData.setText((position + 1) + ". " + mData.get(position).getNaslov());
-        }else{
-            if (convertView == null)
-                convertView = parent.inflate(mContext, R.layout.list_item, null);
+        } else {
+            if (convertView == null) {
+                convertView = parent.inflate(mContext, R.layout.first_list_item, null);
+            }
 
-            TextView tvData = (TextView) convertView.findViewById(R.id.tvData); // title
+            TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
 
             tvData.setText((position + 1) + ". " + mData.get(position).getNaslov());
         }

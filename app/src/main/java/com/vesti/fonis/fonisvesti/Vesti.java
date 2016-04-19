@@ -36,6 +36,15 @@ public abstract class Vesti {
 //            e.printStackTrace();
 //        }
 //    }
+    public static void demoNews(){
+        LinkedList<String> list = new LinkedList<>();
+        list.add("demo");
+        for(int i = 0;i<10;i++) {
+            Vest v = new Vest(i,"Radovan",new GregorianCalendar(2016,4,2),"Demodemodemodemo",list,"http:demo");
+            vestiLista.add(v);
+        }
+        brojVesti = 10;
+    }
 
     public static Integer svuciBrojVesti() {
         try {
