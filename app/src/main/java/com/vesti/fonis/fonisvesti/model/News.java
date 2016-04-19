@@ -1,7 +1,11 @@
 package com.vesti.fonis.fonisvesti.model;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+
+import com.vesti.fonis.fonisvesti.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +34,11 @@ public abstract class News {
             e.printStackTrace();
         }
     }
-    public static void demoNews(){
+    public static void demoNews(Context context){
         for(int i = 0;i<10;i++) {
-            OnePieceOfNews v = new OnePieceOfNews(i,"Lorem ipsum.",new GregorianCalendar(2016,4,2),"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","demo");
+            OnePieceOfNews v = new OnePieceOfNews(i,"Lorem ipsum.",new GregorianCalendar(2016,4,2), context.getString(R.string.lorem_ipsum),"demo");
             newsList.add(v);
+
         }
     }
     public static ArrayList<OnePieceOfNews> searchNews(String text){

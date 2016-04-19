@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -70,9 +71,18 @@ public class NewsActivity extends BaseActivity {
         llProgressbar = (LinearLayout) findViewById(R.id.llProgressBar);
         mAdapter = new ListViewAdapter(this, News.newsList);
 
-        btnLoadMore.setText("Ucitaj još vesti..");
+        btnLoadMore.setText(R.string.loadmore_btn_txt);
         mListView.setAdapter(mAdapter);
         mListView.addFooterView(btnLoadMore);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(NewsActivity.this, NewsViewActivity.class);
+                i.putExtra("newsPosition",position);
+                Log.d(Util.TAG,Integer.toString(position));
+                startActivity(i);
+            }
+        });
 
         btnLoadMore.setOnClickListener(new View.OnClickListener() {
 
@@ -113,26 +123,16 @@ public class NewsActivity extends BaseActivity {
 
     }
 
-    // TODO - implement searchNews method
-
-    /**
-     * @param query text that is searched for
-     * @return search results
-     */
-    private OnePieceOfNews[] searchNews(String query) {
-        return null;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_news, menu);
 
-
         // TODO - add search dialog if there's no space for searchview
         // Get the SearchView and set the searchable configuration
         //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -148,9 +148,7 @@ public class NewsActivity extends BaseActivity {
                 return true;
             }
         });
-        // Assumes current activity is the searchable activity
-        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        //searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
         return true;
     }
 

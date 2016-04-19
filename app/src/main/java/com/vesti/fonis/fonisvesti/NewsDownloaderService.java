@@ -58,7 +58,7 @@ public class NewsDownloaderService extends IntentService {
             // TODO - list of news is now only in memory.. cache it later
             String tekstJSON = procitajVesti(url);
             napraviVesti(tekstJSON);
-            News.demoNews();
+            News.demoNews(this);
         }
         for (int i = 0; i < News.newsList.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());

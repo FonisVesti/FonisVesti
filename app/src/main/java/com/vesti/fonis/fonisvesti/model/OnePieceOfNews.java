@@ -82,7 +82,7 @@ public class OnePieceOfNews {
         return title +" "+ text +" "+ date.getTime()+" "+url+";";
     }
     public boolean isSubstring(String text){
-        return this.text.contains(text);
+        return this.text.contains(text) || this.title.contains(text);
     }
 }
 
