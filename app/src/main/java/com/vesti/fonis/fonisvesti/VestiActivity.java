@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.vesti.fonis.fonisvesti.adapter.ListViewAdapter;
+
 
 /**
  * Created by Dusan on 24.3.2016..
@@ -26,7 +28,7 @@ public class VestiActivity extends BaseActivity {
     private Button btnLoadMore;
 
     private int brojStrane;
-    private Vesti[] searchResults;
+    private News[] searchResults;
 
     // Flag for current page
     int mCurrentPage = 1;
@@ -57,14 +59,14 @@ public class VestiActivity extends BaseActivity {
         Intent searchIntent = getIntent();
         if (Intent.ACTION_SEARCH.equals(searchIntent.getAction())) {
             String query = searchIntent.getStringExtra(SearchManager.QUERY);
-            searchResults = searchNews(query);
+       //     searchResults = searchNews(query);
         }
 
         // Init elements
         mListView = (ListView) findViewById(R.id.list);
         btnLoadMore = new Button(this);
         llProgressbar = (LinearLayout) findViewById(R.id.llProgressBar);
-        mAdapter = new ListViewAdapter(this, Vesti.vestiLista);
+        mAdapter = new ListViewAdapter(this, News.newsList);
 
         btnLoadMore.setText("Ucitaj još vesti..");
         mListView.setAdapter(mAdapter);
@@ -79,6 +81,8 @@ public class VestiActivity extends BaseActivity {
             }
         });
     }
+
+
 
     private void downloadNews(int[] pages) {
         Intent downloadIntent = new Intent(this, VestiDownloaderService.class);
@@ -104,6 +108,7 @@ public class VestiActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
             }
         }
+
     }
 
     // TODO - implement searchNews method
@@ -112,7 +117,7 @@ public class VestiActivity extends BaseActivity {
      * @param query text that is searched for
      * @return search results
      */
-    private Vesti[] searchNews(String query) {
+    private OnePieceOfNews[] searchNews(String query) {
         return null;
     }
 

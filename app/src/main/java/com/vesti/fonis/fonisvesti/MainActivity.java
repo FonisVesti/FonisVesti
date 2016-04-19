@@ -3,18 +3,16 @@ package com.vesti.fonis.fonisvesti;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -27,8 +25,13 @@ public class MainActivity extends ActionBarActivity {
         onClickIbtnONamaListener();
         onClickIbtnProjektiListener();
         onClickIbtnMSDNAAListener();
-        //Vesti.svuciVesti(1);
-        //int brojVesti=Vesti.svuciBrojVesti();
+        News.downloadNews(1);
+        ArrayList<OnePieceOfNews> proba= News.searchNews("Philip");
+        Log.d("vesti",proba.size()+"");
+        for (int i=0;i<proba.size();i++){
+            Log.d("vesti",proba.get(i).toString());
+        }
+        //int brojVesti=News.svuciBrojVesti();
         //Log.d("vesti", brojVesti + "");
     }
 

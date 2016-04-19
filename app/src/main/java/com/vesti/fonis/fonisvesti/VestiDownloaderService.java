@@ -63,7 +63,7 @@ public class VestiDownloaderService extends IntentService {
             Vesti.demoNews();
         }
         for (int i = 0; i < Vesti.vestiLista.size(); i++) {
-            Log.d(Util.TAG, "Vest " + i + ":" + Vesti.vestiLista.get(i).toString());
+            Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
         }
 
         Bundle resultData = new Bundle();
@@ -115,11 +115,11 @@ public class VestiDownloaderService extends IntentService {
                 GregorianCalendar datum = napraviDatum(vest.getString("date"));
                 String url = vest.getString("url");
                 LinkedList<String> kategorije = izvuciKategorije(vest.getJSONArray("categories"));
-                Vest v = new Vest(id, naslov, datum, tekstHTML, kategorije, url);
+                OnePieceOfNews v = new OnePieceOfNews(id, naslov, datum, tekstHTML, url);
 
                 // TODO - redefine equals method
-                if (!Vesti.vestiLista.contains(v))
-                    Vesti.vestiLista.add(v);
+                if (!News.newsList.contains(v))
+                    News.newsList.add(v);
             }
         } catch (JSONException e) {
             e.printStackTrace();

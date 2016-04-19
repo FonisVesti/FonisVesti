@@ -23,9 +23,9 @@ import java.util.concurrent.ExecutionException;
  * Created by Dusan on 19.3.2016..
  */
 public abstract class Vesti {
-    public static List<Vest> vestiLista = new ArrayList<>();
+    public static List<OnePieceOfNews> vestiLista = new ArrayList<>();
     public static int brojVesti;
-    public static final String NEWS_URL = "http://fonis.rs/api/get_posts/?page=";
+
     public static final String NEWS_PAGE_COUNT_URL = "http://fonis.rs/api/get_posts";
 
 
@@ -46,18 +46,6 @@ public abstract class Vesti {
         brojVesti = 10;
     }
 
-    public static Integer svuciBrojVesti() {
-        try {
-            return new JSONBrojVesti().execute(new URL(NEWS_PAGE_COUNT_URL)).get();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     private static class JSONVesti extends AsyncTask<URL, String, Void> {
         HttpURLConnection konekcija = null;
@@ -68,7 +56,7 @@ public abstract class Vesti {
         protected Void doInBackground(URL... params) {
             String tekstJSON = procitajVesti(params[0]);
             napraviVesti(tekstJSON);
-            for (Vest v : vestiLista
+            for (OnePieceOfNews v : vestiLista
                     ) {
                 Log.d("duka", v.toString());
             }
@@ -120,7 +108,7 @@ public abstract class Vesti {
                     GregorianCalendar datum = napraviDatum(vest.getString("date"));
                     String url = vest.getString("url");
                     LinkedList<String> kategorije = izvuciKategorije(vest.getJSONArray("categories"));
-                    Vest v = new Vest(id, naslov, datum, tekstHTML, kategorije, url);
+                    OnePieceOfNews v = new OnePieceOfNews(id, naslov, datum, tekstHTML, url);
                     vestiLista.add(v);
                 }
             } catch (JSONException e) {
@@ -153,49 +141,6 @@ public abstract class Vesti {
         }
     }
 
-    private static class JSONBrojVesti extends AsyncTask<URL, String, Integer> {
-        HttpURLConnection konekcija = null;
-        String tekst = null;
-        BufferedReader in = null;
-
-        @Override
-        protected Integer doInBackground(URL... params) {
-            return procitajBrojVesti(params[0]);
-
-        }
-
-        private Integer procitajBrojVesti(URL url) {
-            try {
-
-                konekcija = (HttpURLConnection) url.openConnection();
-                konekcija.connect();
-                in = new BufferedReader(new InputStreamReader(konekcija.getInputStream()));
-                tekst = in.readLine();
-                return new JSONObject(tekst).getInt("count_total");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } finally {
-                if (konekcija != null)
-                    konekcija.disconnect();
-                try {
-                    if (in != null)
-                        in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
-        }
-    }
 
 
 }
