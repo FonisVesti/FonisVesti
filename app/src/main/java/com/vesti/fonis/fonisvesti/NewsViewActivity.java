@@ -1,7 +1,13 @@
 package com.vesti.fonis.fonisvesti;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.os.Handler;
+import android.support.v4.os.ResultReceiver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +23,8 @@ public class NewsViewActivity extends BaseActivity {
     private int mNewsPosition;
     private ImageView imNewsImage;
     private TextView tvNewsTitle, tvNewsDate, tvNewsText;
+    private ProgressDialog mProgressDialog;
+    private OnePieceOfNews news;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +39,52 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsText = (TextView)findViewById(R.id.tvNewsText);
         tvNewsTitle = (TextView)findViewById(R.id.tvNewsTitle);
 
-        OnePieceOfNews news = News.newsList.get(mNewsPosition);
+        news = News.newsList.get(mNewsPosition);
         tvNewsDate.setText(new SimpleDateFormat("dd.MM.yyyy.").format(news.getDate().getTime()).toString());
         tvNewsTitle.setText(news.getTitle());
+
         tvNewsText.setText(news.getTextHTML());
         tvNewsText.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+        String text=news.getText();
+
+        if(text.toLowerCase().endsWith("read more")){
+            mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
+            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Intent downloadIntent = new Intent(NewsViewActivity.this, NewsDownloaderService.class);
+                    stopService(downloadIntent);
+                }
+            });
+            Intent downloadIntent = new Intent(this, NewsDownloaderService.class);
+            downloadIntent.putExtra("onePieceOfNewsId",news.getId());
+            downloadIntent.putExtra("receiver",new OnePieceOfNewsDownloadReceiver(new Handler()));
+            downloadIntent.putExtra("caller",NewsDownloaderService.NEWS_VIEW_ACTIVITY_CALLER);
+            startService(downloadIntent);
+        }else{
+            tvNewsText.setText(text);
+        }
+
+
+    }
+    @SuppressLint("ParcelCreator")
+    private class OnePieceOfNewsDownloadReceiver extends ResultReceiver {
+        public OnePieceOfNewsDownloadReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
+                int progress = resultData.getInt("progress");
+                mProgressDialog.setProgress(progress);
+                mProgressDialog.dismiss();
+                tvNewsText.setText(news.getText());
+            }
+        }
 
 
     }

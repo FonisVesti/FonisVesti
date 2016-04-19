@@ -1,8 +1,10 @@
 package com.vesti.fonis.fonisvesti.model;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
-import com.vesti.fonis.fonisvesti.Slika;
+import com.vesti.fonis.fonisvesti.NewsDownloaderService;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,14 +20,19 @@ public class OnePieceOfNews {
     private String title;
     private GregorianCalendar date;
     private String textHTML;
-    private Slika mainImg;
-    private LinkedList<Slika> images;
+    private Image mainImg;
+    private LinkedList<Image> images;
     private String url;
     private String text;
+    public static final String ONE_PIECE_OF_NEWS_URL= "http://fonis.rs/api/get_post/?post_id=";
 
-    void parse() {
-        Document d = Jsoup.parse(textHTML);
-        text = d.text();
+    public void parse(){
+        Document d= Jsoup.parse(textHTML);
+        text =d.text();
+    }
+
+    public void setTextHTML(String textHTML) {
+        this.textHTML = textHTML;
     }
 
     public OnePieceOfNews(int id, String naslov, GregorianCalendar datum, String tekstHTML, String url) {
@@ -40,6 +47,10 @@ public class OnePieceOfNews {
         //  izvadiSlike();
         if (images.size() >= 1)
             mainImg = images.get(0);
+    }
+
+    public String getText() {
+        return text;
     }
 
     public int getId() {
@@ -58,28 +69,12 @@ public class OnePieceOfNews {
         return textHTML;
     }
 
-    public String getText() {
-        return text;
-    }
 
     public boolean equals(Object o) {
         if (!(o instanceof OnePieceOfNews)) return false;
         OnePieceOfNews v = (OnePieceOfNews) o;
         if (v.getId() != id) return false;
         return true;
-    }
-
-    private void izvadiSlike() {
-        while (textHTML.contains("<img")) {
-            String slika = textHTML.substring(textHTML.indexOf("<img"), textHTML.indexOf(" />") + 3);
-            String src = slika.substring(slika.indexOf("src=") + 5, slika.indexOf("alt") - 2);
-            String alt = slika.substring(slika.indexOf("alt=") + 5, slika.indexOf("width") - 2);
-            Slika s = new Slika(src, alt);
-            images.add(s);
-            Log.d("vesti", slika);
-            Log.d("vesti", src);
-            textHTML = textHTML.substring(0, textHTML.indexOf("<img")) + textHTML.substring(textHTML.indexOf(" />") + 3);
-        }
     }
 
     @Override
