@@ -115,23 +115,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/rlBottomButtons">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button"
+            android:layout_above="@+id/btnSend"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:gravity="center_vertical|center_horizontal">
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/llUpload">
 
 
             <ImageButton
-                android:id="@+id/btnFromGallery"
+                android:id="@+id/btnFromCamera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -140,7 +142,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/msdnaa_b_camera"
                 android:layout_weight="3"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <ImageButton
                 android:id="@+id/btnUploadPic"
@@ -153,7 +155,7 @@
                 android:layout_weight="2" />
 
             <ImageButton
-                android:id="@+id/btnFromCamera"
+                android:id="@+id/btnFromGallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -162,12 +164,12 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/msdnaa_b_gallery"
                 android:layout_weight="3"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnSend"
             style="@style/ButtonLongStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

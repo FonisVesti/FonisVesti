@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
@@ -128,8 +129,9 @@ public class NewsActivity extends BaseActivity {
         // TODO - add search dialog if there's no space for searchview
         // Get the SearchView and set the searchable configuration
         //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        // TODO - rework getActionView for API<11
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        //SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

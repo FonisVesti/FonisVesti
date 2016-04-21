@@ -20,7 +20,7 @@
             android:layout_height="70dp"
             android:layout_above="@+id/textView7"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/msdnaa" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:gravity="center"
             android:text="Da bi registrovali svoj msdnaa nalog potrebno je da popunite formu i pošaljete fotografiju prve strane indeksa."
             android:textColor="@color/main_button_text"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
         />
     </LinearLayout>
 
@@ -114,12 +114,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/rlBottomButtons">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button"
+            android:layout_above="@+id/btnSend"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
@@ -130,7 +131,7 @@
 
 
             <ImageButton
-                android:id="@+id/btnFromGallery"
+                android:id="@+id/btnFromCamera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -139,7 +140,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/msdnaa_b_camera"
                 android:layout_weight="3"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <ImageButton
                 android:id="@+id/btnUploadPic"
@@ -152,7 +153,7 @@
                 android:layout_weight="2" />
 
             <ImageButton
-                android:id="@+id/btnFromCamera"
+                android:id="@+id/btnFromGallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -161,12 +162,12 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/msdnaa_b_gallery"
                 android:layout_weight="3"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnSend"
             style="@style/ButtonLongStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
