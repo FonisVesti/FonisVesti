@@ -7,7 +7,7 @@
     <color name="bg_transparent">#00141515</color>
     <color name="main_button_text">#ffffff</color>
     <color name="main_button_bg_pressed">#535353</color>
-
+    <color name="random">#ff00ff</color>
     <color name="main_divider_bg">#4e3408</color>
 
 </resources>

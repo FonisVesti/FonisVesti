@@ -3,6 +3,7 @@ package com.vesti.fonis.fonisvesti;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 
@@ -115,6 +116,8 @@ public class NewsActivity extends BaseActivity {
                 mProgressDialog.dismiss();
                 llProgressbar.setVisibility(View.GONE);
                 btnLoadMore.setVisibility(View.VISIBLE);
+                //TODO - set background color for list view
+
                 mAdapter.notifyDataSetChanged();
             }
         }

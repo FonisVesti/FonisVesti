@@ -59,7 +59,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
         tvData.setText(mFilteredData.get(position).getTitle());
         ImageView imNewsImage=(ImageView) convertView.findViewById(R.id.imNewsImage);
-        imNewsImage.setImageBitmap(mFilteredData.get(position).getImage());
+        imNewsImage.setImageBitmap(mFilteredData.get(position).getThumbnail());
 
         return convertView;
     }

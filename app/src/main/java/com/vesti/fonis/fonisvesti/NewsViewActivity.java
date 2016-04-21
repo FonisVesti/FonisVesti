@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,13 +45,12 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsDate.setText(new SimpleDateFormat("dd.MM.yyyy.").format(news.getDate().getTime()).toString());
         tvNewsTitle.setText(news.getTitle());
 
-        tvNewsText.setText(news.getTextHTML());
+
         tvNewsText.setMovementMethod(LinkMovementMethod.getInstance());
 
-        imNewsImage.setImageBitmap(news.getImage());
+        imNewsImage.setImageBitmap(news.getThumbnail());
 
         String text=news.getText();
-        tvNewsText.setText("");
         if(text.toLowerCase().endsWith("read more")){
             mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -64,9 +65,9 @@ public class NewsViewActivity extends BaseActivity {
             downloadIntent.putExtra("receiver",new OnePieceOfNewsDownloadReceiver(new Handler()));
             downloadIntent.putExtra("caller",NewsDownloaderService.NEWS_VIEW_ACTIVITY_CALLER);
             startService(downloadIntent);
-        }else{
-            tvNewsText.setText(text);
         }
+        tvNewsText.setText(Html.fromHtml(news.getTextHTML()));
+        
 
 
     }
@@ -83,7 +84,8 @@ public class NewsViewActivity extends BaseActivity {
                 int progress = resultData.getInt("progress");
                 mProgressDialog.setProgress(progress);
                 mProgressDialog.dismiss();
-                tvNewsText.setText(news.getText());
+                tvNewsText.setText(Html.fromHtml(news.getTextHTML()));
+
             }
         }
 

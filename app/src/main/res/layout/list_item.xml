@@ -2,23 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_margin="0dp">
 
-    <ImageView
-        android:id="@+id/imNewsImage"
-        android:layout_width="@dimen/news_normal_height"
-        android:layout_height="@dimen/news_normal_height"
-        android:src="@drawable/empty_photo" />
 
-    <TextView
-        android:id="@+id/tvData"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/news_normal_height"
-        android:gravity="left"
-        android:padding="10dip"
-        android:textAlignment="inherit"
-        android:textColor="#acacac"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/imNewsImage"
+            android:layout_width="@dimen/news_normal_height"
+            android:layout_height="@dimen/news_normal_height"
+            android:src="@drawable/empty_photo"
+            android:background="#141516"
+            android:padding="2dp" />
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvData"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/news_normal_height"
+            android:gravity="left"
+            android:padding="10dip"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="#faa61a"
+            android:background="#141516" />
+
+
+
 
 </LinearLayout>

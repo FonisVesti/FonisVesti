@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by Dusan on 23.2.2016..
@@ -15,11 +16,13 @@ public class OnePieceOfNews {
     private String title;
     private GregorianCalendar date;
     private String textHTML;
-    private Bitmap image;
+    private Bitmap thumbnail;
+    private List<String> imagesURL;
+    private List<Bitmap> images;
 
 
-    public Bitmap getImage() {
-        return image;
+    public Bitmap getThumbnail() {
+        return thumbnail;
     }
 
 
@@ -33,6 +36,9 @@ public class OnePieceOfNews {
 
     public void setTextHTML(String textHTML) {
         this.textHTML = textHTML;
+        removeImagesFromHTML();
+        removeShareButtons();
+        parse();
     }
 
     public OnePieceOfNews(int id, String title, GregorianCalendar date, String textHTML, Bitmap image) {
@@ -40,11 +46,24 @@ public class OnePieceOfNews {
         this.title = title;
         this.date = date;
         this.textHTML = textHTML;
-        this.image =image;
+        removeImagesFromHTML();
+        removeShareButtons();
+        this.thumbnail =image;
         parse();
 
     }
-
+    private void removeImagesFromHTML(){
+        while(textHTML.contains("<img")){
+            String slika=textHTML.substring(textHTML.indexOf("<img"),textHTML.indexOf("<img")+textHTML.substring(textHTML.indexOf("<img")).indexOf(" />") + 3);
+      //      String src=slika.substring(slika.indexOf("src=")+5,slika.indexOf("alt")-2);
+        //    String alt=slika.substring(slika.indexOf("alt=")+5,slika.indexOf("width")-2);
+            textHTML=textHTML.substring(0,textHTML.indexOf("<img"))+textHTML.substring(textHTML.indexOf("<img")+textHTML.substring(textHTML.indexOf("<img")).indexOf(" />") + 3);
+        }
+    }
+    private void removeShareButtons(){
+        if(textHTML.contains("<!-- Simple Share Buttons"))
+            textHTML=textHTML.substring(0,textHTML.indexOf("<!-- Simple Share Buttons"));
+    }
     public String getText() {
         return text;
     }

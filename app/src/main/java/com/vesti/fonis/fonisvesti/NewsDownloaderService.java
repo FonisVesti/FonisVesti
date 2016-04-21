@@ -156,7 +156,7 @@ public class NewsDownloaderService extends IntentService {
                 Bitmap image=null;
                 if(vest.has("thumbnail_images")) {
                     JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
-                    String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
+                    String imageURL = thumbnailJSON.getJSONObject("thumbnail").getString("url");
                     if (imageURL != null) {
                         image = downloadImage(imageURL);
                     }
@@ -193,7 +193,6 @@ public class NewsDownloaderService extends IntentService {
             JSONObject postJSON=new JSONObject(textJSON).getJSONObject("post");
             OnePieceOfNews post=News.findOnePieceOfNewsByID(id);
             post.setTextHTML(postJSON.getString("content"));
-            post.parse();
         } catch (JSONException e) {
             e.printStackTrace();
         }
