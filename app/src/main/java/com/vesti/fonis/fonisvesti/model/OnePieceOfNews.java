@@ -1,16 +1,11 @@
 package com.vesti.fonis.fonisvesti.model;
 
-import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
-
-import com.vesti.fonis.fonisvesti.NewsDownloaderService;
+import android.graphics.Bitmap;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 
 /**
  * Created by Dusan on 23.2.2016..
@@ -20,9 +15,14 @@ public class OnePieceOfNews {
     private String title;
     private GregorianCalendar date;
     private String textHTML;
-    private Image mainImg;
-    private LinkedList<Image> images;
-    private String url;
+    private Bitmap image;
+
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+
     private String text;
     public static final String ONE_PIECE_OF_NEWS_URL= "http://fonis.rs/api/get_post/?post_id=";
 
@@ -35,18 +35,14 @@ public class OnePieceOfNews {
         this.textHTML = textHTML;
     }
 
-    public OnePieceOfNews(int id, String naslov, GregorianCalendar datum, String tekstHTML, String url) {
+    public OnePieceOfNews(int id, String title, GregorianCalendar date, String textHTML, Bitmap image) {
         this.id = id;
-        this.title = naslov;
-        this.date = datum;
-        this.textHTML = tekstHTML;
-        this.url = url;
-
-        images = new LinkedList<>();
+        this.title = title;
+        this.date = date;
+        this.textHTML = textHTML;
+        this.image =image;
         parse();
-        //  izvadiSlike();
-        if (images.size() >= 1)
-            mainImg = images.get(0);
+
     }
 
     public String getText() {
@@ -79,11 +75,12 @@ public class OnePieceOfNews {
 
     @Override
     public String toString() {
-        return title + " " + text + " " + date.getTime() + " " + url + ";";
+        return title + " " + text + " " + date.getTime() + " " + ";";
     }
 
     public boolean isSubstring(String text) {
         return this.text.contains(text) || this.title.contains(text);
     }
+
 }
 

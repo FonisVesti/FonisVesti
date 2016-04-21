@@ -1,7 +1,6 @@
 package com.vesti.fonis.fonisvesti.adapter;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
@@ -51,15 +51,15 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
                 convertView = li.inflate( R.layout.list_item, null);
             }
-            TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-            tvData.setText(mFilteredData.get(position).getTitle());
         } else {
             if (convertView == null) {
                 convertView = li.inflate( R.layout.first_list_item, null);
             }
-            TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-            tvData.setText(mFilteredData.get(position).getTitle());
         }
+        TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
+        tvData.setText(mFilteredData.get(position).getTitle());
+        ImageView imNewsImage=(ImageView) convertView.findViewById(R.id.imNewsImage);
+        imNewsImage.setImageBitmap(mFilteredData.get(position).getImage());
 
         return convertView;
     }

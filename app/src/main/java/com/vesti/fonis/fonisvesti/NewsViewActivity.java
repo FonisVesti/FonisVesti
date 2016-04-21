@@ -46,6 +46,7 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsText.setText(news.getTextHTML());
         tvNewsText.setMovementMethod(LinkMovementMethod.getInstance());
 
+        imNewsImage.setImageBitmap(news.getImage());
 
         String text=news.getText();
         tvNewsText.setText("");

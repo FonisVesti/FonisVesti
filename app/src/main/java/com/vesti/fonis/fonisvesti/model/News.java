@@ -33,20 +33,20 @@ public abstract class News {
         }
         return null;
     }
-    public static void downloadNews(int pageNumber){
-        try {
-            new JSONNews().execute(new URL(News.NEWS_URL+ pageNumber));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void demoNews(Context context){
-        for(int i = 0;i<10;i++) {
-            OnePieceOfNews v = new OnePieceOfNews(i,"Lorem ipsum.",new GregorianCalendar(2016,4,2), context.getString(R.string.lorem_ipsum),"demo");
-            newsList.add(v);
-
-        }
-    }
+//    public static void downloadNews(int pageNumber){
+//        try {
+//            new JSONNews().execute(new URL(News.NEWS_URL+ pageNumber));
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    public static void demoNews(Context context){
+//        for(int i = 0;i<10;i++) {
+//            OnePieceOfNews v = new OnePieceOfNews(i,"Lorem ipsum.",new GregorianCalendar(2016,4,2), context.getString(R.string.lorem_ipsum),"demo");
+//            newsList.add(v);
+//
+//        }
+//    }
     public static ArrayList<OnePieceOfNews> searchNews(String text){
         // removes all extra space between words
 
@@ -59,78 +59,78 @@ public abstract class News {
         }
         return list;
     }
-    private static class JSONNews extends AsyncTask<URL,String, Void>{
-        HttpURLConnection connection =null;
-        String text =null;
-        BufferedReader in=null;
-        @Override
-        protected Void doInBackground(URL... params) {
-            String tekstJSON= readNews(params[0]);
-            makeNews(tekstJSON);
-            for (OnePieceOfNews v: newsList
-                    ) {
-                Log.d("duka",v.toString());
-            }
-            return null;
-        }
-        private String readNews(URL url){
-            try {
-
-                connection =(HttpURLConnection) url.openConnection();
-                connection.connect();
-                in=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                text ="";
-                boolean end=false;
-                while(!end){
-                    String line=in.readLine();
-                    end=(line==null)?true:false;
-                    text +=line;
-                }
-                return text;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                if(connection !=null)
-                    connection.disconnect();
-                try {
-                    if(in!=null)
-                        in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return text;
-        }
-        private void makeNews(String textJSON){
-            try {
-                if(textJSON==null)return;
-                JSONArray newsListJSON=new JSONObject(textJSON).getJSONArray("posts");
-                for(int i=0;i<newsListJSON.length();i++){
-                    JSONObject OnePieceOfNewsJSON=newsListJSON.getJSONObject(i);
-                    int id=OnePieceOfNewsJSON.getInt("id");
-                    String title=OnePieceOfNewsJSON.getString("title");
-                    String textHTML=OnePieceOfNewsJSON.getString("content");
-                    GregorianCalendar date=createDate(OnePieceOfNewsJSON.getString("date"));
-                    String url=OnePieceOfNewsJSON.getString("url");
-                    OnePieceOfNews v=new OnePieceOfNews(id,title,date,textHTML,url);
-                    newsList.add(v);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        private GregorianCalendar createDate(String datumS){
-            int year=Integer.parseInt(datumS.substring(0, 4));
-            int month=Integer.parseInt(datumS.substring(5, 7))-1;
-            int day=Integer.parseInt(datumS.substring(8, 10));
-            int hour=Integer.parseInt(datumS.substring(11,13));
-            int minute=Integer.parseInt(datumS.substring(14,16));
-            int second=Integer.parseInt(datumS.substring(17,19));
-            return new GregorianCalendar(year,month,day,hour,minute,second);
-        }
-
-    }
+//    private static class JSONNews extends AsyncTask<URL,String, Void>{
+//        HttpURLConnection connection =null;
+//        String text =null;
+//        BufferedReader in=null;
+//        @Override
+//        protected Void doInBackground(URL... params) {
+//            String tekstJSON= readNews(params[0]);
+//            makeNews(tekstJSON);
+//            for (OnePieceOfNews v: newsList
+//                    ) {
+//                Log.d("duka",v.toString());
+//            }
+//            return null;
+//        }
+//        private String readNews(URL url){
+//            try {
+//
+//                connection =(HttpURLConnection) url.openConnection();
+//                connection.connect();
+//                in=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//                text ="";
+//                boolean end=false;
+//                while(!end){
+//                    String line=in.readLine();
+//                    end=(line==null)?true:false;
+//                    text +=line;
+//                }
+//                return text;
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }finally {
+//                if(connection !=null)
+//                    connection.disconnect();
+//                try {
+//                    if(in!=null)
+//                        in.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            return text;
+//        }
+//        private void makeNews(String textJSON){
+//            try {
+//                if(textJSON==null)return;
+//                JSONArray newsListJSON=new JSONObject(textJSON).getJSONArray("posts");
+//                for(int i=0;i<newsListJSON.length();i++){
+//                    JSONObject OnePieceOfNewsJSON=newsListJSON.getJSONObject(i);
+//                    int id=OnePieceOfNewsJSON.getInt("id");
+//                    String title=OnePieceOfNewsJSON.getString("title");
+//                    String textHTML=OnePieceOfNewsJSON.getString("content");
+//                    GregorianCalendar date=createDate(OnePieceOfNewsJSON.getString("date"));
+//                    String url=OnePieceOfNewsJSON.getString("url");
+//                    OnePieceOfNews v=new OnePieceOfNews(id,title,date,textHTML,url);
+//                    newsList.add(v);
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        private GregorianCalendar createDate(String datumS){
+//            int year=Integer.parseInt(datumS.substring(0, 4));
+//            int month=Integer.parseInt(datumS.substring(5, 7))-1;
+//            int day=Integer.parseInt(datumS.substring(8, 10));
+//            int hour=Integer.parseInt(datumS.substring(11,13));
+//            int minute=Integer.parseInt(datumS.substring(14,16));
+//            int second=Integer.parseInt(datumS.substring(17,19));
+//            return new GregorianCalendar(year,month,day,hour,minute,second);
+//        }
+//
+//    }
 
 }

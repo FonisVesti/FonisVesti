@@ -2,10 +2,18 @@ package com.vesti.fonis.fonisvesti;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.os.ResultReceiver;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.utils.Util;
@@ -21,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 
 /**
  * Created by Sarma on 4/18/2016.
@@ -51,9 +60,14 @@ public class NewsDownloaderService extends IntentService {
                 downloadOnePieceOfNews(intent);
                 break;
             }
+            case IMAGE_CALLER:{
+               // downloadImage("");
+                break;
+            }
         }
 
     }
+
     private void downloadOnePieceOfNews(Intent intent){
         int id=intent.getExtras().getInt("onePieceOfNewsId");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
@@ -87,6 +101,7 @@ public class NewsDownloaderService extends IntentService {
 
             String textJSON = downloadJSON(url);
             makeTheNews(textJSON);
+
             //       News.demoNews(this);
         }
         for (int i = 0; i < News.newsList.size(); i++) {
@@ -135,11 +150,18 @@ public class NewsDownloaderService extends IntentService {
             for (int i = 0; i < vesti.length(); i++) {
                 JSONObject vest = vesti.getJSONObject(i);
                 int id = vest.getInt("id");
-                String naslov = vest.getString("title");
-                String tekstHTML = vest.getString("content");
-                GregorianCalendar datum = createDate(vest.getString("date"));
-                String url = vest.getString("url");
-                OnePieceOfNews v = new OnePieceOfNews(id, naslov, datum, tekstHTML, url);
+                String title = vest.getString("title");
+                String textHTML = vest.getString("content");
+                GregorianCalendar date = createDate(vest.getString("date"));
+                Bitmap image=null;
+                if(vest.has("thumbnail_images")) {
+                    JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
+                    String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
+                    if (imageURL != null) {
+                        image = downloadImage(imageURL);
+                    }
+                }
+                OnePieceOfNews v = new OnePieceOfNews(id, title, date, textHTML,image);
                 if (!News.newsList.contains(v))
                     News.newsList.add(v);
             }
@@ -149,6 +171,23 @@ public class NewsDownloaderService extends IntentService {
             e.printStackTrace();
         }
     }
+    private Bitmap downloadImage(String URL){
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+        ImageLoader.getInstance().init(config);
+        ImageLoader imageLoader=ImageLoader.getInstance();
+        return imageLoader.loadImageSync(URL);
+
+    }
+
     private void setText(int id, String textJSON){
         try {
             JSONObject postJSON=new JSONObject(textJSON).getJSONObject("post");
