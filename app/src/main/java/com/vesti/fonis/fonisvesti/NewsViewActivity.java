@@ -30,6 +30,7 @@ public class NewsViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_news_view);
 
         if(getIntent().hasExtra("newsPosition")){

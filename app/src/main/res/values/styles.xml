@@ -10,17 +10,19 @@
 
         <!-- With android prefix for compat with < 3.0 apis.. eg android:actionBarStyle-->
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="colorControlNormal">@color/bg_transparent</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="Base.Widget.AppCompat.SearchView" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <!-- Need both android:background and background items. The former is for newer versions
          of android that support ActionBar natively. The latter is for older android versions-->
         <item name="android:background" tools:ignore="NewApi">@color/colorPrimaryDark</item>

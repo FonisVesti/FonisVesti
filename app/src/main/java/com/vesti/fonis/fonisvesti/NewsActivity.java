@@ -45,23 +45,18 @@ public class NewsActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_vesti);
         if(News.newsList.isEmpty()) {
             // TODO - handle events when user press back and close the dialog
-            mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
+            mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, false);
 
             // Fire the downloader
             mCurrentPage = 1;
 
             downloadNews(new int[]{mCurrentPage, ++mCurrentPage});
 
-            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
-                    stopService(downloadIntent);
-                }
-            });
+
         }
         // Init elements
         mListView = (ListView) findViewById(R.id.list);
