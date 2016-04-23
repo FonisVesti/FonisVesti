@@ -23,8 +23,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="Registruj svoj nalog za Microsoft razvojne alate ili obnovi postojeći nalog."
-        android:textColor="@color/main_button_text"
+        android:text="@string/msdnaa_intro_message"
+        android:textColor="@color/text_color_white"
         android:textSize="20dp" />
 
     <Button

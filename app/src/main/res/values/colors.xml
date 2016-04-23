@@ -5,9 +5,13 @@
     <color name="colorAccent">#faa61a</color>
     <color name="colorAccentTransp">#b2faa61a</color>
     <color name="bg_transparent">#00141515</color>
-    <color name="main_button_text">#ffffff</color>
     <color name="main_button_bg_pressed">#535353</color>
     <color name="random">#ff00ff</color>
     <color name="main_divider_bg">#4e3408</color>
+
+    <!-- Text color-->
+    <color name="text_hint_color">#80ffffff</color>
+    <color name="text_color_white">#ffffff</color>
+
 
 </resources>

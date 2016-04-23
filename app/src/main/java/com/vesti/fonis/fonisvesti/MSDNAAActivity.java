@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.menu.ActionMenuItemView;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 /**
@@ -15,6 +16,9 @@ public class MSDNAAActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Hide action bar
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_msdnaa);
 
         btnRegAcc = (Button)findViewById(R.id.btnRegAcc);

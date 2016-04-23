@@ -37,9 +37,9 @@ import java.util.LinkedList;
 public class NewsDownloaderService extends IntentService {
     public static final int UPDATE_PROGRESS = 8344;
     private static int mDownloadedPages = 0;
-    public static final int NEWS_ACTIVITY_CALLER=0;
-    public static final int NEWS_VIEW_ACTIVITY_CALLER=1;
-    public static final int IMAGE_CALLER=2;
+    public static final int NEWS_ACTIVITY_CALLER = 0;
+    public static final int NEWS_VIEW_ACTIVITY_CALLER = 1;
+    public static final int IMAGE_CALLER = 2;
     private HttpURLConnection connection = null;
     private String text = null;
     private BufferedReader in = null;
@@ -51,40 +51,41 @@ public class NewsDownloaderService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        switch (intent.getExtras().getInt("caller")){
-            case NEWS_ACTIVITY_CALLER:{
+        switch (intent.getExtras().getInt("caller")) {
+            case NEWS_ACTIVITY_CALLER: {
                 downloadNews(intent);
                 News.currentList=News.newsList;
                 break;
             }
-            case NEWS_VIEW_ACTIVITY_CALLER:{
+            case NEWS_VIEW_ACTIVITY_CALLER: {
                 downloadOnePieceOfNews(intent);
                 break;
             }
-            case IMAGE_CALLER:{
-               // downloadImage("");
+            case IMAGE_CALLER: {
+                // downloadImage("");
                 break;
             }
         }
 
     }
 
-    private void downloadOnePieceOfNews(Intent intent){
-        int id=intent.getExtras().getInt("onePieceOfNewsId");
+    private void downloadOnePieceOfNews(Intent intent) {
+        int id = intent.getExtras().getInt("onePieceOfNewsId");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
         try {
-            url=new URL(OnePieceOfNews.ONE_PIECE_OF_NEWS_URL+id);
+            url = new URL(OnePieceOfNews.ONE_PIECE_OF_NEWS_URL + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        String textJSON=downloadJSON(url);
-        setText(id,textJSON);
+        String textJSON = downloadJSON(url);
+        setText(id, textJSON);
 
         Bundle resultData = new Bundle();
         resultData.putInt("progress",0);
         receiver.send(UPDATE_PROGRESS, resultData);
     }
-    private void downloadNews(Intent intent){
+
+    private void downloadNews(Intent intent) {
         int[] pageNumber = intent.getExtras().getIntArray("pageNumber");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
@@ -113,6 +114,7 @@ public class NewsDownloaderService extends IntentService {
 
 
     }
+
     private String downloadJSON(URL url) {
         try {
             connection = (HttpURLConnection) url.openConnection();
@@ -130,7 +132,7 @@ public class NewsDownloaderService extends IntentService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }  finally {
+        } finally {
             if (connection != null)
                 connection.disconnect();
             try {
@@ -154,25 +156,26 @@ public class NewsDownloaderService extends IntentService {
                 String title = vest.getString("title");
                 String textHTML = vest.getString("content");
                 GregorianCalendar date = createDate(vest.getString("date"));
-                Bitmap image=null;
-                if(vest.has("thumbnail_images")) {
+                Bitmap image = null;
+                if (vest.has("thumbnail_images")) {
                     JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
                     String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
                     if (imageURL != null) {
                         image = downloadImage(imageURL);
                     }
                 }
-                OnePieceOfNews v = new OnePieceOfNews(id, title, date, textHTML,image);
+                OnePieceOfNews v = new OnePieceOfNews(id, title, date, textHTML, image);
                 if (!News.newsList.contains(v))
                     News.newsList.add(v);
             }
             mDownloadedPages++;
-            Log.d(Util.TAG,"makeTheNews: page downloaded: "+mDownloadedPages);
+            Log.d(Util.TAG, "makeTheNews: page downloaded: " + mDownloadedPages);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    private Bitmap downloadImage(String URL){
+
+    private Bitmap downloadImage(String URL) {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true).cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
@@ -184,15 +187,15 @@ public class NewsDownloaderService extends IntentService {
                 .memoryCache(new WeakMemoryCache())
                 .discCacheSize(100 * 1024 * 1024).build();
         ImageLoader.getInstance().init(config);
-        ImageLoader imageLoader=ImageLoader.getInstance();
-        return imageLoader.loadImageSync(URL);
+        ImageLoader imageLoader = ImageLoader.getInstance();
 
+        return imageLoader.loadImageSync(URL);
     }
 
-    private void setText(int id, String textJSON){
+    private void setText(int id, String textJSON) {
         try {
-            JSONObject postJSON=new JSONObject(textJSON).getJSONObject("post");
-            OnePieceOfNews post=News.findOnePieceOfNewsByID(id);
+            JSONObject postJSON = new JSONObject(textJSON).getJSONObject("post");
+            OnePieceOfNews post = News.findOnePieceOfNewsByID(id);
             post.setTextHTML(postJSON.getString("content"));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -209,7 +212,6 @@ public class NewsDownloaderService extends IntentService {
         int sekund = Integer.parseInt(datumS.substring(17, 19));
         return new GregorianCalendar(godina, mesec, dan, sat, minut, sekund);
     }
-
 
 
     @Override

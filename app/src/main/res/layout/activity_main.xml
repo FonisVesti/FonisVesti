@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="VESTI"
-                    android:textColor="@color/main_button_text"
+                    android:textColor="@color/text_color_white"
                     android:textSize="22dp" />
             </LinearLayout>
 
@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MSDNAA"
-                    android:textColor="@color/main_button_text"
+                    android:textColor="@color/text_color_white"
                     android:textSize="22dp" />
             </LinearLayout>
 
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/main_text_bottom_margin"
                     android:text="PROJEKTI"
-                    android:textColor="@color/main_button_text"
+                    android:textColor="@color/text_color_white"
                     android:textSize="22dp" />
             </LinearLayout>
 
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/main_text_bottom_margin"
                     android:text="O NAMA"
-                    android:textColor="@color/main_button_text"
+                    android:textColor="@color/text_color_white"
                     android:textSize="22dp" />
             </LinearLayout>
 

@@ -45,7 +45,9 @@ public class NewsActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_vesti);
+
         mCurrentPage = 2;
 //        if(News.newsList.isEmpty()) {
 //            // TODO - handle events when user press back and close the dialog
@@ -64,6 +66,7 @@ public class NewsActivity extends BaseActivity {
 ////                }
 ////            });
 //        }
+
         // Init elements
         mListView = (ListView) findViewById(R.id.list);
         btnLoadMore = new Button(this);
