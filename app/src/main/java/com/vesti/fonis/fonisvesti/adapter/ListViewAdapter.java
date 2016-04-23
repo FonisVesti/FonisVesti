@@ -14,6 +14,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.R;
 import com.vesti.fonis.fonisvesti.utils.Util;
@@ -31,11 +32,11 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     }
 
     public int getCount() {
-        return mFilteredData.size();
+        return News.currentList.size();
     }
 
     public Object getItem(int position) {
-        return mFilteredData.get(position);
+        return News.currentList.get(position);
     }
 
     public long getItemId(int position) {
@@ -57,9 +58,9 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             }
         }
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-        tvData.setText(mFilteredData.get(position).getTitle());
+        tvData.setText(News.currentList.get(position).getTitle());
         ImageView imNewsImage=(ImageView) convertView.findViewById(R.id.imNewsImage);
-        imNewsImage.setImageBitmap(mFilteredData.get(position).getThumbnail());
+        imNewsImage.setImageBitmap(News.currentList.get(position).getThumbnail());
 
         return convertView;
     }
@@ -83,21 +84,22 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
                 FilterResults results = new FilterResults();
 
-                if (constraint.toString().isEmpty()){
-                    Log.d(Util.TAG,"Filtered string is empty.");
-                    results.values = mOriginalData;
-                    results.count = mOriginalData.size();
-                }
+//                if (constraint.toString().isEmpty()){
+//                    Log.d(Util.TAG,"Filtered string is empty.");
+//                    results.values = mOriginalData;
+//                    results.count = mOriginalData.size();
+//                }
 
                 // removes all extra space between words
-                String filterString = constraint.toString().toLowerCase().replaceAll("\\s+", " ");
+              //  String filterString = constraint.toString().toLowerCase().replaceAll("\\s+", " ");
 
                 // Search logic
-                final List<OnePieceOfNews> list = new ArrayList<>();
-                for (int i = 0; i < mOriginalData.size(); i++) {
-                    if (mOriginalData.get(i).isSubstring(filterString))
-                        list.add(mOriginalData.get(i));
-                }
+//                final List<OnePieceOfNews> list = new ArrayList<>();
+//                for (int i = 0; i < mOriginalData.size(); i++) {
+//                    if (mOriginalData.get(i).hasSubstring(filterString))
+//                        list.add(mOriginalData.get(i));
+//                }
+                List<OnePieceOfNews> list= News.searchNews(constraint.toString());
 
                 results.values = list;
                 results.count = list.size();
@@ -108,7 +110,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mFilteredData = (List<OnePieceOfNews>) results.values;
+            //    mFilteredData = (List<OnePieceOfNews>) results.values;
                 notifyDataSetChanged();
             }
         };

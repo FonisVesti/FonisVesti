@@ -54,6 +54,7 @@ public class NewsDownloaderService extends IntentService {
         switch (intent.getExtras().getInt("caller")){
             case NEWS_ACTIVITY_CALLER:{
                 downloadNews(intent);
+                News.currentList=News.newsList;
                 break;
             }
             case NEWS_VIEW_ACTIVITY_CALLER:{
@@ -80,7 +81,7 @@ public class NewsDownloaderService extends IntentService {
         setText(id,textJSON);
 
         Bundle resultData = new Bundle();
-        resultData.putInt("progress", 100);
+        resultData.putInt("progress",0);
         receiver.send(UPDATE_PROGRESS, resultData);
     }
     private void downloadNews(Intent intent){
@@ -97,20 +98,20 @@ public class NewsDownloaderService extends IntentService {
             }
 
             //Downloading news and making news objects
-            // TODO - list of news is now only in memory.. cache it later
 
             String textJSON = downloadJSON(url);
+
             makeTheNews(textJSON);
 
-            //       News.demoNews(this);
+            Bundle resultData = new Bundle();
+            resultData.putInt("progress", 100);
+            receiver.send(UPDATE_PROGRESS, resultData);
         }
         for (int i = 0; i < News.newsList.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
         }
 
-        Bundle resultData = new Bundle();
-        resultData.putInt("progress", 100);
-        receiver.send(UPDATE_PROGRESS, resultData);
+
     }
     private String downloadJSON(URL url) {
         try {
@@ -156,7 +157,7 @@ public class NewsDownloaderService extends IntentService {
                 Bitmap image=null;
                 if(vest.has("thumbnail_images")) {
                     JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
-                    String imageURL = thumbnailJSON.getJSONObject("thumbnail").getString("url");
+                    String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
                     if (imageURL != null) {
                         image = downloadImage(imageURL);
                     }

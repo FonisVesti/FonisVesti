@@ -46,23 +46,24 @@ public class NewsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vesti);
-        if(News.newsList.isEmpty()) {
-            // TODO - handle events when user press back and close the dialog
-            mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
-
-            // Fire the downloader
-            mCurrentPage = 1;
-
-            downloadNews(new int[]{mCurrentPage, ++mCurrentPage});
-
-            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
-                    stopService(downloadIntent);
-                }
-            });
-        }
+        mCurrentPage = 2;
+//        if(News.newsList.isEmpty()) {
+//            // TODO - handle events when user press back and close the dialog
+// //           mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
+//
+//            // Fire the downloader
+//
+//
+//     //       downloadNews(new int[]{mCurrentPage, ++mCurrentPage});
+//
+////            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+////                @Override
+////                public void onCancel(DialogInterface dialog) {
+////                    Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
+////                    stopService(downloadIntent);
+////                }
+////            });
+//        }
         // Init elements
         mListView = (ListView) findViewById(R.id.list);
         btnLoadMore = new Button(this);
@@ -112,13 +113,13 @@ public class NewsActivity extends BaseActivity {
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
-                mProgressDialog.setProgress(progress);
-                mProgressDialog.dismiss();
-                llProgressbar.setVisibility(View.GONE);
-                btnLoadMore.setVisibility(View.VISIBLE);
-                //TODO - set background color for list view
-
-                mAdapter.notifyDataSetChanged();
+                if(progress==100) {
+        //            mProgressDialog.setProgress(progress);
+        //            mProgressDialog.dismiss();
+                    llProgressbar.setVisibility(View.GONE);
+                    btnLoadMore.setVisibility(View.VISIBLE);
+                    mAdapter.notifyDataSetChanged();
+                }
             }
         }
 

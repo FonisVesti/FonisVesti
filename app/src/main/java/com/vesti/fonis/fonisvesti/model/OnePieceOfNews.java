@@ -1,6 +1,7 @@
 package com.vesti.fonis.fonisvesti.model;
 
 import android.graphics.Bitmap;
+import android.text.Html;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,6 +33,7 @@ public class OnePieceOfNews {
     public void parse(){
         Document d= Jsoup.parse(textHTML);
         text =d.text();
+
     }
 
     public void setTextHTML(String textHTML) {
@@ -54,10 +56,8 @@ public class OnePieceOfNews {
     }
     private void removeImagesFromHTML(){
         while(textHTML.contains("<img")){
-            String slika=textHTML.substring(textHTML.indexOf("<img"),textHTML.indexOf("<img")+textHTML.substring(textHTML.indexOf("<img")).indexOf(" />") + 3);
-      //      String src=slika.substring(slika.indexOf("src=")+5,slika.indexOf("alt")-2);
-        //    String alt=slika.substring(slika.indexOf("alt=")+5,slika.indexOf("width")-2);
-            textHTML=textHTML.substring(0,textHTML.indexOf("<img"))+textHTML.substring(textHTML.indexOf("<img")+textHTML.substring(textHTML.indexOf("<img")).indexOf(" />") + 3);
+            textHTML=textHTML.substring(0,textHTML.indexOf("<img"))+
+                    textHTML.substring(textHTML.indexOf("<img")+textHTML.substring(textHTML.indexOf("<img")).indexOf(" />") + 3);
         }
     }
     private void removeShareButtons(){
@@ -97,8 +97,8 @@ public class OnePieceOfNews {
         return title + " " + text + " " + date.getTime() + " " + ";";
     }
 
-    public boolean isSubstring(String text) {
-        return this.text.contains(text) || this.title.contains(text);
+    public boolean hasSubstring(String text) {
+        return this.text.toLowerCase().contains(text.toLowerCase()) || this.title.toLowerCase().contains(text.toLowerCase());
     }
 
 }

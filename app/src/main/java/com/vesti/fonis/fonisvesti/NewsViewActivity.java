@@ -41,7 +41,7 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsText = (TextView)findViewById(R.id.tvNewsText);
         tvNewsTitle = (TextView)findViewById(R.id.tvNewsTitle);
 
-        news = News.newsList.get(mNewsPosition);
+        news = News.currentList.get(mNewsPosition);
         tvNewsDate.setText(new SimpleDateFormat("dd.MM.yyyy.").format(news.getDate().getTime()).toString());
         tvNewsTitle.setText(news.getTitle());
 
@@ -67,7 +67,7 @@ public class NewsViewActivity extends BaseActivity {
             startService(downloadIntent);
         }
         tvNewsText.setText(Html.fromHtml(news.getTextHTML()));
-        
+
 
 
     }
