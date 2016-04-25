@@ -15,5 +15,9 @@
         <u>msdnaa.fonis.rs</u></string>
     <string name="msdnaa_intro_message">Registruj svoj nalog za Microsoft razvojne alate ili obnovi postojeći nalog.
     Ako ne uspete da pošaljete svoje podatke, možete nam pisati na <u>msdnaa@fonis.rs</u></string>
+
     <string name="aboutUs">Udruženje studenata informatike “FONIS” je studentska nevladina i neprofitna organizacija koja okuplja buduće IT stručnjake u cilju učestvovanja na stručnim predavanjima, kursevima, takmičenjima i seminarima, rada na projektima, ostvarivanje stručnih praksi u IT oblastima.</string>
+
+    <string name="projects_intro_text">FONIS, kao organizacija koja okuplja studente informatike FON-a, raspolaže velikim brojem mladih i kvalitetnih kadrova koji svoje umeće i kreativnost prikazuju kroz projekte na kojim ih FONIS okuplja. Kroz različite aktivnosti, članovima se nudi produbljivanje praktičnog znanja, povećanje organizacionih sposobnosti i osećaj za timski rad.</string>
+
 </resources>

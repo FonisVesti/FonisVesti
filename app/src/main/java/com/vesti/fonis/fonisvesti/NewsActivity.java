@@ -46,7 +46,7 @@ public class NewsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_vesti);
+        setContentView(R.layout.activity_news);
 
         mCurrentPage = 2;
 //        if(News.newsList.isEmpty()) {

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Background color -->
     <color name="colorPrimary">#141516</color>
     <color name="colorPrimaryDark">#080808</color>
+    <color name="colorPrimaryLight">#151516</color>
+    <color name="main_button_bg_pressed">#535353</color>
+    <color name="blackTransparent">#7a000000</color>
+
     <color name="colorAccent">#faa61a</color>
     <color name="colorAccentTransp">#b2faa61a</color>
     <color name="bg_transparent">#00141515</color>
-    <color name="main_button_bg_pressed">#535353</color>
     <color name="random">#ff00ff</color>
     <color name="main_divider_bg">#4e3408</color>
 
