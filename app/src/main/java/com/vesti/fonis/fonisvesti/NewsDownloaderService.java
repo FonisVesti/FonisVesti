@@ -105,7 +105,8 @@ public class NewsDownloaderService extends IntentService {
             makeTheNews(textJSON);
 
             Bundle resultData = new Bundle();
-            resultData.putInt("progress", 100);
+            if(pageNumber[i]==2) resultData.putInt("progress",1);
+            else resultData.putInt("progress", 0);
             receiver.send(UPDATE_PROGRESS, resultData);
         }
         for (int i = 0; i < News.newsList.size(); i++) {

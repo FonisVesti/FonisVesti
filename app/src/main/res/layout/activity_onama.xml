@@ -2,25 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/colorPrimary">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6">
 
+        </LinearLayout>
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="192dp"
-        android:id="@+id/imgFonis"
-        android:layout_weight="0.09" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="137dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pisi nam"
-        android:id="@+id/btnPisiNam"
-        android:layout_gravity="right" />
+        android:id="@+id/imageView10"
+        android:src="@drawable/onama"
+        android:layout_weight="0.6"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6">
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="530dp"
-        android:text="New Text"
-        android:id="@+id/twONama" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/aboutUs"
+        android:id="@+id/textViewAboutUs"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_color_white"
+        android:gravity="center"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adresa udruženja\n Fakultet organizacionih nauka\n Jove Ilića 154, Beograd\n Kancelarija 025"
+        android:id="@+id/textViewContact"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_color_white"
+        android:gravity="center_vertical|center"
+        android:layout_marginBottom="10dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewPhone"
+            android:layout_alignParentLeft="true"
+            android:text="Kontakt telefon\n +381 11 3950 860"
+            android:textColor="@color/text_color_white"
+            android:textAlignment="center"
+            android:gravity="center_vertical|center"
+            android:layout_marginLeft="50dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewMail"
+            android:layout_alignParentRight="true"
+            android:text="Kontakt adresa\n office@fonis.rs"
+            android:textColor="@color/text_color_white"
+            android:textAlignment="center"
+            android:layout_marginRight="50dp" />
+    </RelativeLayout>
 </LinearLayout>

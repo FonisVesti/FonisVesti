@@ -50,7 +50,7 @@ public class NewsActivity extends BaseActivity {
 
         mCurrentPage = 2;
 //        if(News.newsList.isEmpty()) {
-//            // TODO - handle events when user press back and close the dialog
+//
 // //           mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
 //
 //            // Fire the downloader
@@ -116,7 +116,7 @@ public class NewsActivity extends BaseActivity {
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
-                if(progress==100) {
+                if(progress==0) {
         //            mProgressDialog.setProgress(progress);
         //            mProgressDialog.dismiss();
                     llProgressbar.setVisibility(View.GONE);

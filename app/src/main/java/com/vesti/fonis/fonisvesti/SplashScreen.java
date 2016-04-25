@@ -9,18 +9,21 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.vesti.fonis.fonisvesti.adapter.ListViewAdapter;
+import com.vesti.fonis.fonisvesti.model.News;
+
 /**
  * Created by Dusan on 23.4.2016..
  */
 public class SplashScreen extends BaseActivity{
-
+    ListViewAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.splash_screen);
         downloadNews(new int[]{1, 2});
-
+        mAdapter=new ListViewAdapter(this, News.currentList);
     }
 
     private void downloadNews(int[] pages) {
@@ -42,10 +45,14 @@ public class SplashScreen extends BaseActivity{
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
-                if(progress==100) {
+                if(progress==0) {
                     Intent i=new Intent(SplashScreen.this,MainActivity.class);
                     startActivity(i);
+                    mAdapter.notifyDataSetChanged();
                     finish();
+                }
+                if(progress==1){
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         }

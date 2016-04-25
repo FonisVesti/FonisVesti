@@ -1,10 +1,8 @@
 package com.vesti.fonis.fonisvesti.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,26 +15,25 @@ import android.widget.TextView;
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.R;
-import com.vesti.fonis.fonisvesti.utils.Util;
 
 public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     private Context mContext;
-    private List<OnePieceOfNews> mOriginalData;
-    private List<OnePieceOfNews> mFilteredData;
+    private List<OnePieceOfNews> mData;
+//    private List<OnePieceOfNews> mFilteredData;
 
-    public ListViewAdapter(Context context, List<OnePieceOfNews> newsList) {
+    public ListViewAdapter(Context context, List<OnePieceOfNews> currentList) {
         mContext = context;
-        mOriginalData = newsList;
-        mFilteredData = newsList;
+        mData = currentList;
+  //      mFilteredData = currentList;
     }
 
     public int getCount() {
-        return News.currentList.size();
+        return mData.size();
     }
 
     public Object getItem(int position) {
-        return News.currentList.get(position);
+        return mData.get(position);
     }
 
     public long getItemId(int position) {
@@ -46,7 +43,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // TODO - add viewholder
+
         if (getItemViewType(position) != 0) {
             if (convertView == null) {
 
@@ -58,9 +55,9 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             }
         }
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-        tvData.setText(News.currentList.get(position).getTitle());
+        tvData.setText(mData.get(position).getTitle());
         ImageView imNewsImage=(ImageView) convertView.findViewById(R.id.imNewsImage);
-        imNewsImage.setImageBitmap(News.currentList.get(position).getThumbnail());
+        imNewsImage.setImageBitmap(mData.get(position).getThumbnail());
 
         return convertView;
     }
@@ -86,8 +83,8 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
 //                if (constraint.toString().isEmpty()){
 //                    Log.d(Util.TAG,"Filtered string is empty.");
-//                    results.values = mOriginalData;
-//                    results.count = mOriginalData.size();
+//                    results.values = mData;
+//                    results.count = mData.size();
 //                }
 
                 // removes all extra space between words
@@ -95,9 +92,9 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
                 // Search logic
 //                final List<OnePieceOfNews> list = new ArrayList<>();
-//                for (int i = 0; i < mOriginalData.size(); i++) {
-//                    if (mOriginalData.get(i).hasSubstring(filterString))
-//                        list.add(mOriginalData.get(i));
+//                for (int i = 0; i < mData.size(); i++) {
+//                    if (mData.get(i).hasSubstring(filterString))
+//                        list.add(mData.get(i));
 //                }
                 List<OnePieceOfNews> list= News.searchNews(constraint.toString());
 
@@ -110,7 +107,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-            //    mFilteredData = (List<OnePieceOfNews>) results.values;
+                mData = (List<OnePieceOfNews>) results.values;
                 notifyDataSetChanged();
             }
         };
