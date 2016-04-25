@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imNewsImage"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/onepieceofnews_big_height"
         android:scaleType="centerCrop"
         android:src="@drawable/empty_photo"
 
@@ -17,15 +17,26 @@
 
     <TextView
         android:id="@+id/tvData"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:layout_gravity="bottom"
-        android:background="#7a000000"
-        android:text="Vesti"
+        android:background="@color/blackTransparent"
         android:clickable="false"
-        android:textColor="#faa61a"
-        android:layout_alignParentBottom="true"/>
+        android:textColor="@color/text_color_white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="100dp"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        android:text="PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+        android:layout_marginBottom="20dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="105dp"
+        android:layout_height="3dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"></LinearLayout>
 
 </RelativeLayout>

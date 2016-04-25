@@ -8,27 +8,26 @@
 
         <ImageView
             android:id="@+id/imNewsImage"
-            android:layout_width="@dimen/news_normal_height"
-            android:layout_height="@dimen/news_normal_height"
+            android:layout_width="@dimen/onepieceofnews_normal_height"
+            android:layout_height="@dimen/onepieceofnews_normal_height"
             android:src="@drawable/empty_photo"
-            android:background="#141516"
-            android:padding="2dp" />
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent">
+            android:background="@color/colorAccent"
+            android:paddingBottom="3dp"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="@dimen/onepieceofnews_side_margin" />
 
-        </LinearLayout>
         <TextView
             android:id="@+id/tvData"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/news_normal_height"
-            android:gravity="left"
-            android:padding="10dip"
-            android:textAlignment="center"
+            android:layout_height="@dimen/onepieceofnews_normal_height"
             android:textSize="16dp"
             android:textStyle="bold"
-            android:textColor="#faa61a"
-            android:background="#141516" />
+            android:textColor="@color/text_color_white"
+            android:background="@drawable/news_onenews_bg"
+            android:padding="10dp"
+            android:layout_marginRight="@dimen/onepieceofnews_side_margin"
+            android:text="dghdfhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+            android:gravity="center_vertical" />
 
 
 
