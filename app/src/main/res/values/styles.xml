@@ -75,6 +75,8 @@
         <item name="font_medium">16sp</item>
         <item name="font_large">18sp</item>
         <item name="font_xlarge">20sp</item>
+        <item name="font_xxlarge">22sp</item>
+
     </style>
 
     <style name="FontStyle.Medium">
@@ -82,6 +84,8 @@
         <item name="font_medium">20sp</item>
         <item name="font_large">22sp</item>
         <item name="font_xlarge">24sp</item>
+        <item name="font_xxlarge">26sp</item>
+
     </style>
 
     <style name="FontStyle.Large">
@@ -89,6 +93,8 @@
         <item name="font_medium">28sp</item>
         <item name="font_large">30sp</item>
         <item name="font_xlarge">32sp</item>
+        <item name="font_xxlarge">34sp</item>
+
     </style>
 
 

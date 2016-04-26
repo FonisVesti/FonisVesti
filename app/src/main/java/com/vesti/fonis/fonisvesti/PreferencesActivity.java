@@ -38,25 +38,27 @@ public class PreferencesActivity extends BaseActivity {
                         // Small size selected
                         prefs.setFontStyle(FontStyle.Small);
                         Log.d(Util.TAG,"PrefActivity: 1. item selected.");
-                        //restartActivity();
+                        Preferences.notifyStateChanged();
                         break;
                     case 1:
                         // Medium size selected
                         prefs.setFontStyle(FontStyle.Medium);
                         Log.d(Util.TAG, "PrefActivity: 2. item selected.");
+                        Preferences.notifyStateChanged();
 
-                        //restartActivity();
                         break;
                     case 2:
                         // Large size selected
                         prefs.setFontStyle(FontStyle.Large);
                         Log.d(Util.TAG, "PrefActivity: 3. item selected.");
+                        Preferences.notifyStateChanged();
 
-                        //restartActivity();
                         break;
                     default:
                         // Set medium
                         prefs.setFontStyle(FontStyle.Medium);
+                        Preferences.notifyStateChanged();
+
                         break;
                 }
             }

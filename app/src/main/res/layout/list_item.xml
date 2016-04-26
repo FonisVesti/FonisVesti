@@ -20,14 +20,18 @@
             android:id="@+id/tvData"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/onepieceofnews_normal_height"
-            android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/text_color_white"
             android:background="@drawable/news_onenews_bg"
-            android:padding="10dp"
+
             android:layout_marginRight="@dimen/onepieceofnews_side_margin"
             android:text="dghdfhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:textSize="?attr/font_small"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
 
 
 

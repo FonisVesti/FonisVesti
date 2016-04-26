@@ -1,5 +1,6 @@
 package com.vesti.fonis.fonisvesti;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,8 +25,16 @@ public class BaseActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
         super.onCreate(savedInstanceState);
-
     }
 
+    @Override
+    protected void onResume() {
 
+        super.onResume();
+        if(Preferences.isChanged()){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+    }
 }
