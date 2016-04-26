@@ -50,17 +50,39 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         if (getItemViewType(position) != 0) {
             if (convertView == null) {
 
-                convertView = li.inflate( R.layout.list_item, null);
+                convertView = li.inflate(R.layout.list_item, null);
             }
         } else {
             if (convertView == null) {
-                convertView = li.inflate( R.layout.first_list_item, null);
+                convertView = li.inflate(R.layout.first_list_item, null);
             }
         }
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
         tvData.setText(News.currentList.get(position).getTitle());
-        ImageView imNewsImage=(ImageView) convertView.findViewById(R.id.imNewsImage);
+        ImageView imNewsImage = (ImageView) convertView.findViewById(R.id.imNewsImage);
         imNewsImage.setImageBitmap(News.currentList.get(position).getThumbnail());
+
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk < 16) {
+
+            if (position != 0 && position % 2 != 0) {
+                imNewsImage.setBackgroundDrawable(mContext.getResources().getDrawable(R.color.text_color_white));
+                tvData.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+            } else {
+                imNewsImage.setBackgroundDrawable(mContext.getResources().getDrawable(R.color.colorAccent));
+                tvData.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
+            }
+
+        } else {
+
+            if (position != 0 && position % 2 != 0) {
+                imNewsImage.setBackground(mContext.getResources().getDrawable(R.color.text_color_white));
+                tvData.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+            } else {
+                imNewsImage.setBackground(mContext.getResources().getDrawable(R.color.colorAccent));
+                tvData.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
+            }
+        }
 
         return convertView;
     }
@@ -91,7 +113,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 //                }
 
                 // removes all extra space between words
-              //  String filterString = constraint.toString().toLowerCase().replaceAll("\\s+", " ");
+                //  String filterString = constraint.toString().toLowerCase().replaceAll("\\s+", " ");
 
                 // Search logic
 //                final List<OnePieceOfNews> list = new ArrayList<>();
@@ -99,7 +121,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 //                    if (mOriginalData.get(i).hasSubstring(filterString))
 //                        list.add(mOriginalData.get(i));
 //                }
-                List<OnePieceOfNews> list= News.searchNews(constraint.toString());
+                List<OnePieceOfNews> list = News.searchNews(constraint.toString());
 
                 results.values = list;
                 results.count = list.size();
@@ -110,7 +132,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-            //    mFilteredData = (List<OnePieceOfNews>) results.values;
+                //    mFilteredData = (List<OnePieceOfNews>) results.values;
                 notifyDataSetChanged();
             }
         };

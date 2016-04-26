@@ -10,7 +10,7 @@
     tools:context="com.vesti.fonis.fonisvesti.MainActivity">
 
     <LinearLayout
-        android:id="@+id/llVesti"
+        android:id="@+id/llNews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -57,7 +57,7 @@
         android:background="@color/main_divider_bg"
         android:orientation="horizontal"
         android:id="@+id/divider"
-        android:layout_below="@id/llVesti"/>
+        android:layout_below="@id/llNews"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -76,7 +76,7 @@
         android:orientation="vertical"
         app:layout_heightPercent="40%"
         app:layout_widthPercent="50%"
-        android:layout_toRightOf="@id/llVesti">
+        android:layout_toRightOf="@id/llNews">
 
         <RelativeLayout
             android:id="@+id/rlMsdnaa"
@@ -112,13 +112,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llProjekti"
+        android:id="@+id/llProjects"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_heightPercent="40%"
         app:layout_widthPercent="50%"
-        android:layout_below="@id/llVesti">
+        android:layout_below="@id/llNews">
 
         <RelativeLayout
             android:id="@+id/rlProjekti"
@@ -156,14 +156,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llOnama"
+        android:id="@+id/llAbout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_heightPercent="40%"
         app:layout_widthPercent="50%"
-        android:layout_below="@id/llVesti"
-        android:layout_toRightOf="@id/llProjekti">
+        android:layout_below="@id/llNews"
+        android:layout_toRightOf="@id/llProjects">
 
         <RelativeLayout
             android:id="@+id/rlOnama"
@@ -205,20 +205,20 @@
         android:background="@color/main_divider_bg"
         android:orientation="horizontal"
         android:id="@+id/divider1"
-        android:layout_below="@id/llProjekti"/>
+        android:layout_below="@id/llProjects"/>
 
     <LinearLayout
         android:id="@+id/llSocial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/llProjekti"
+        android:layout_below="@id/llProjects"
         android:orientation="horizontal"
         android:paddingEnd="@dimen/main_social_buttons_margin"
         android:paddingStart="@dimen/main_social_buttons_margin"
         app:layout_heightPercent="20%">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ibtnFacebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/main_social_buttons_margin"
@@ -229,7 +229,7 @@
             android:src="@drawable/main_b_social_fb" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/ibtnTwitter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/main_social_buttons_margin"
@@ -240,7 +240,7 @@
             android:src="@drawable/main_b_social_twitter" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/ibtnInstagram"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/main_social_buttons_margin"
@@ -251,7 +251,7 @@
             android:src="@drawable/main_b_social_instagram" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/ibtnYoutube"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/main_social_buttons_margin"
@@ -262,7 +262,7 @@
             android:src="@drawable/main_b_social_yt" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/ibtnLinkedin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/main_social_buttons_margin"
