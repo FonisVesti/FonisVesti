@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class News {
     public static ArrayList<OnePieceOfNews> newsList =new ArrayList<>();
     public static final String NEWS_URL = "http://fonis.rs/api/get_posts/?page=";
-    public static ArrayList<OnePieceOfNews> currentList;
+    public static ArrayList<OnePieceOfNews> currentList=new ArrayList<>();
     public static OnePieceOfNews findOnePieceOfNewsByID(int id){
         for (OnePieceOfNews v: newsList
                 ) {
@@ -25,7 +25,7 @@ public abstract class News {
         text=text.replaceAll("\\s+", " ");
 
        // ArrayList<OnePieceOfNews> list=new ArrayList<>();
-        currentList=new ArrayList<>();
+
         for (int i=0;i< newsList.size();i++){
             if(newsList.get(i).hasSubstring(text))
                 currentList.add(newsList.get(i));

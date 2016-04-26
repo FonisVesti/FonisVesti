@@ -54,7 +54,7 @@ public class NewsDownloaderService extends IntentService {
         switch (intent.getExtras().getInt("caller")) {
             case NEWS_ACTIVITY_CALLER: {
                 downloadNews(intent);
-                News.currentList=News.newsList;
+
                 break;
             }
             case NEWS_VIEW_ACTIVITY_CALLER: {
@@ -108,6 +108,7 @@ public class NewsDownloaderService extends IntentService {
             if(pageNumber[i]==2) resultData.putInt("progress",1);
             else resultData.putInt("progress", 0);
             receiver.send(UPDATE_PROGRESS, resultData);
+            News.currentList=News.newsList;
         }
         for (int i = 0; i < News.newsList.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
