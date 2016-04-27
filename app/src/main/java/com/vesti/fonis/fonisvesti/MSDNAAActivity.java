@@ -24,8 +24,8 @@ public class MSDNAAActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Hide action bar
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().hide();
+//        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_msdnaa);
 
         btnRegAcc = (Button)findViewById(R.id.btnRegAcc);

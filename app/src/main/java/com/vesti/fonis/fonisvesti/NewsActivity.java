@@ -71,7 +71,7 @@ public class NewsActivity extends BaseActivity {
         mListView = (ListView) findViewById(R.id.list);
         btnLoadMore = new Button(this);
         llProgressbar = (LinearLayout) findViewById(R.id.llProgressBar);
-        mAdapter = new ListViewAdapter(this, News.newsList);
+        mAdapter = new ListViewAdapter(this, News.currentList);
 
         btnLoadMore.setText(R.string.loadmore_btn_txt);
         mListView.setAdapter(mAdapter);

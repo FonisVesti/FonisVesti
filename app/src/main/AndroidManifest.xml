@@ -2,12 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vesti.fonis.fonisvesti">
 
+    <permission android:name="com.vesti.fonis.fonisvesti.permision.MAPS_RECEIVE"
+        android:protectionLevel="signature">
+        <uses-permision android:name="com.vesti.fonis.fonisvesti.permision.MAPS_RECEIVE"> </uses-permision>
+
+    </permission>
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
+
+
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true">
+
+    </uses-feature>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +28,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAZ2fFOr6Ecrbz4vaqJiouKxomlq1LlTFE"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
