@@ -1,10 +1,13 @@
 package com.vesti.fonis.fonisvesti;
 
+import android.app.AlertDialog;
 import android.app.IntentService;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.os.ResultReceiver;
 import android.util.Log;
 
@@ -30,6 +33,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Sarma on 4/18/2016.
@@ -53,6 +58,7 @@ public class NewsDownloaderService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         switch (intent.getExtras().getInt("caller")) {
             case NEWS_ACTIVITY_CALLER: {
+
                 downloadNews(intent);
 
                 break;
@@ -85,12 +91,15 @@ public class NewsDownloaderService extends IntentService {
         receiver.send(UPDATE_PROGRESS, resultData);
     }
 
+
+
     private void downloadNews(Intent intent) {
         int[] pageNumber = intent.getExtras().getIntArray("pageNumber");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
 
         for (int i = 0; i < pageNumber.length; i++) {
+
             // TODO - add error feedback to user
             try {
                 url = new URL(News.NEWS_URL + pageNumber[i]);
@@ -108,7 +117,7 @@ public class NewsDownloaderService extends IntentService {
             if(pageNumber[i]==2) resultData.putInt("progress",1);
             else resultData.putInt("progress", 0);
             receiver.send(UPDATE_PROGRESS, resultData);
-            News.currentList=News.newsList;
+         //   News.currentList=News.newsList;
         }
         for (int i = 0; i < News.newsList.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
@@ -222,4 +231,5 @@ public class NewsDownloaderService extends IntentService {
         super.onDestroy();
 
     }
+
 }

@@ -11,7 +11,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -19,24 +20,49 @@
                 android:id="@+id/imNewsImage"
                 android:src="@drawable/empty_photo"
                 android:scaleType="centerCrop" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="30dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
 
-            <TextView
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/imageView16"
+                    android:src="@drawable/citac_vesti" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                android:text=""
                 android:id="@+id/tvNewsTitle"
-                android:textSize="?attr/font_xxlarge"
-                android:layout_margin="10dp" />
+                android:textSize="16sp"
+                android:layout_margin="10dp"
+                    android:textColor="@color/text_color_white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.1.2000."
+                android:text=""
                 android:id="@+id/tvNewsDate"
-                android:layout_gravity="right"
+                android:layout_gravity="left"
                 android:textSize="?attr/font_small"
-                android:layout_marginRight="10dp" />
-
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorAccent" />
+                </LinearLayout>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +71,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
-                android:textSize="?attr/font_medium" />
+                android:textSize="?attr/font_medium"
+                android:textColor="@color/text_color_white" />
+        </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

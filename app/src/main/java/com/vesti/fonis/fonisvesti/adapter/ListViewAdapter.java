@@ -42,7 +42,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // TODO - add viewholder
+
         if (getItemViewType(position) != 0) {
             if (convertView == null) {
 
@@ -128,7 +128,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                //    mFilteredData = (List<OnePieceOfNews>) results.values;
+                mData = (List<OnePieceOfNews>) results.values;
                 notifyDataSetChanged();
             }
         };

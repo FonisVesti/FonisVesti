@@ -6,21 +6,24 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context="com.vesti.fonis.fonisvesti.MSDNAASumbitActivity">
+    tools:context="com.vesti.fonis.fonisvesti.MSDNAASumbitActivity"
+    android:weightSum="7">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="2">
 
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_above="@+id/tvIntro"
+            android:layout_above="@+id/textView7"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
             android:src="@drawable/msdnaa" />
 
         <TextView
@@ -33,18 +36,27 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="Da bi registrovali/obnovili svoj msdnaa nalog potrebno je da popunite formu i pošaljete fotografiju prve strane indeksa kao i stranu sa upisanom tekućom godinom."
+            android:text="Da bi registrovali svoj msdnaa nalog potrebno je da popunite formu i pošaljete fotografiju prve strane indeksa."
             android:textColor="@color/text_color_white"
-            android:textSize="16dp" />
+            android:textSize="18dp" />
         />
     </LinearLayout>
-
-    <LinearLayout
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="2">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSend"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llData"
+            android:orientation="vertical">
         <LinearLayout
             style="@style/MsdnaaInputForm"
             android:layout_width="match_parent"
@@ -115,18 +127,11 @@
                 android:hint="primer@gmail.com"
                 android:textColorHint="@color/text_hint_color" />
         </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rlBottomButtons">
-
-        <LinearLayout
+        </LinearLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnSend"
+            android:layout_below="@+id/llData"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
@@ -140,8 +145,8 @@
 
             <ImageButton
                 android:id="@+id/btnUploadPic1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerInParent="true"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerInside"
@@ -150,15 +155,23 @@
 
             <ImageButton
                 android:id="@+id/btnUploadPic2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerInParent="true"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerInside"
                 android:src="@drawable/msdnaa_b_uploadpic"
                 android:layout_weight="2" />
 
-        </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlBottomButtons"
+        android:layout_weight="5">
 
         <Button
             android:id="@+id/btnSend"
@@ -169,6 +182,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
+
             android:text="POŠALJI" />
 
     </RelativeLayout>

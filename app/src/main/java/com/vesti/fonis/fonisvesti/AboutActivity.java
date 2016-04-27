@@ -1,7 +1,9 @@
 package com.vesti.fonis.fonisvesti;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,15 +28,22 @@ public class AboutActivity extends BaseActivity implements OnMapReadyCallback{
         setContentView(R.layout.activity_about);
         googleMap=((MapFragment) getFragmentManager().findFragmentById(R.id.map));
         googleMap.getMapAsync(this);
-        txtContact=(TextView) findViewById(R.id.textViewAboutUs);
+        txtContact=(TextView) findViewById(R.id.textViewMail);
 
-//        txtContact.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent i=new
-//            }
-//        });
+        txtContact.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                //send mail to office@fonis.rs
+                Intent i=new Intent(Intent.ACTION_SEND);
+                i.setData(Uri.parse("mailto:"));
+                String[] to={"office@fonis.rs"};
+                i.putExtra(Intent.EXTRA_EMAIL, to);
+                i.setType("message/rfc822");
+                Intent chooser=Intent.createChooser(i,"Izaberi aplikaciju:");
+                startActivity(chooser);
+            }
+        });
     }
 
     @Override
