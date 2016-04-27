@@ -81,8 +81,12 @@ public class NewsDownloaderService extends IntentService {
         setText(id, textJSON);
 
         Bundle resultData = new Bundle();
-        resultData.putInt("progress",0);
-        receiver.send(UPDATE_PROGRESS, resultData);
+        resultData.putInt("progress", 0);
+
+        if (receiver != null)
+            receiver.send(UPDATE_PROGRESS, resultData);
+
+        //TODO - add broadcast
     }
 
     private void downloadNews(Intent intent) {
@@ -105,10 +109,13 @@ public class NewsDownloaderService extends IntentService {
             makeTheNews(textJSON);
 
             Bundle resultData = new Bundle();
-            if(pageNumber[i]==2) resultData.putInt("progress",1);
+            if (pageNumber[i] == 2) resultData.putInt("progress", 1);
             else resultData.putInt("progress", 0);
-            receiver.send(UPDATE_PROGRESS, resultData);
-            News.currentList=News.newsList;
+
+            if (receiver != null)
+                receiver.send(UPDATE_PROGRESS, resultData);
+
+            News.currentList = News.newsList;
         }
         for (int i = 0; i < News.newsList.size(); i++) {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
