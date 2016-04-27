@@ -3,18 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="false">
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/msdnaa"
-        android:layout_above="@+id/textView7"
+        android:layout_above="@+id/tvIntro"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tvIntro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnRegAcc"
@@ -23,9 +24,12 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="@string/msdnaa_intro_message"
         android:textColor="@color/text_color_white"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:linksClickable="true"
+        android:enabled="true"
+        android:clickable="true"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/btnRegAcc"
