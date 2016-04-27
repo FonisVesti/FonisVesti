@@ -23,7 +23,8 @@ public class SplashScreen extends BaseActivity{
         getSupportActionBar().hide();
         setContentView(R.layout.splash_screen);
         downloadNews(new int[]{1, 2});
-        mAdapter=new ListViewAdapter(this, News.currentList);
+            mAdapter=new ListViewAdapter(this,News.newsList);
+       // mAdapter=new ListViewAdapter(this, News.currentList);
     }
 
     private void downloadNews(int[] pages) {
