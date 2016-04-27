@@ -44,7 +44,6 @@ public class MSDNAASumbitActivity extends BaseActivity {
     // To controll what button is pressed and what pic path will be used
     private int mLoadPic = 0;
 
-
     private ImageButton btnUploadPic_1, btnUploadPic_2;
     private Button btnSendMail;
     private EditText etName, etIndexNumber, etEmailAdress;

@@ -70,8 +70,6 @@ public class NewsViewActivity extends BaseActivity {
         }
         tvNewsText.setText(Html.fromHtml(news.getTextHTML()));
 
-
-
     }
     @SuppressLint("ParcelCreator")
     private class OnePieceOfNewsDownloadReceiver extends ResultReceiver {

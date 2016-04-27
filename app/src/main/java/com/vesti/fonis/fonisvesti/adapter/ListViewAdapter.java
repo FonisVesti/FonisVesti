@@ -101,7 +101,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             protected FilterResults performFiltering(CharSequence constraint) {
 
                 FilterResults results = new FilterResults();
-
 //                if (constraint.toString().isEmpty()){
 //                    Log.d(Util.TAG,"Filtered string is empty.");
 //                    results.values = mData;
