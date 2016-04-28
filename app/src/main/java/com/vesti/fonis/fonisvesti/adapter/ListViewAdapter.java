@@ -46,11 +46,11 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         if (getItemViewType(position) != 0) {
             if (convertView == null) {
 
-                convertView = li.inflate(R.layout.list_item, null);
+                convertView = li.inflate(R.layout.news_list_item, null);
             }
         } else {
             if (convertView == null) {
-                convertView = li.inflate(R.layout.first_list_item, null);
+                convertView = li.inflate(R.layout.news_first_list_item, null);
             }
         }
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
@@ -101,21 +101,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             protected FilterResults performFiltering(CharSequence constraint) {
 
                 FilterResults results = new FilterResults();
-//                if (constraint.toString().isEmpty()){
-//                    Log.d(Util.TAG,"Filtered string is empty.");
-//                    results.values = mData;
-//                    results.count = mData.size();
-//                }
-
-                // removes all extra space between words
-                //  String filterString = constraint.toString().toLowerCase().replaceAll("\\s+", " ");
-
-                // Search logic
-//                final List<OnePieceOfNews> list = new ArrayList<>();
-//                for (int i = 0; i < mData.size(); i++) {
-//                    if (mData.get(i).hasSubstring(filterString))
-//                        list.add(mData.get(i));
-//                }
                 List<OnePieceOfNews> list = News.searchNews(constraint.toString());
 
                 results.values = list;
@@ -131,8 +116,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
         };
-
-
         return filter;
     }
 }

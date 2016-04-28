@@ -12,7 +12,7 @@
     <dimen name="btn_long_text_size">18dp</dimen>
     <dimen name="btn_long_width">220dp</dimen>
 
-    <!-- News dimens -->
+    <!-- News dimens / Projects -->
     <dimen name="onepieceofnews_top_margin">10dp</dimen>
     <dimen name="onepieceofnews_side_margin">20dp</dimen>
     <dimen name="onepieceofnews_normal_height">80dp</dimen>
