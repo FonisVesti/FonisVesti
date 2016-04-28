@@ -12,6 +12,7 @@ import android.support.v4.os.ResultReceiver;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
@@ -82,10 +83,15 @@ public class NewsViewActivity extends BaseActivity {
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
-                mProgressDialog.setProgress(progress);
-                mProgressDialog.dismiss();
-                tvNewsText.setText(Html.fromHtml(news.getTextHTML()));
-
+               if(progress==0) {
+                   mProgressDialog.setProgress(progress);
+                   mProgressDialog.dismiss();
+                   tvNewsText.setText(Html.fromHtml(news.getTextHTML()));
+               }else
+                if(progress==-1){
+                    mProgressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Internet konekcija je ugašena", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
