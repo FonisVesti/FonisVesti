@@ -10,7 +10,7 @@
             android:id="@+id/imNewsImage"
             android:layout_width="@dimen/onepieceofnews_normal_height"
             android:layout_height="@dimen/onepieceofnews_normal_height"
-            android:src="@drawable/empty_photo"
+            android:src="@mipmap/ic_launcher"
             android:background="@color/colorAccent"
             android:paddingBottom="3dp"
             android:scaleType="centerCrop"

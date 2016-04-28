@@ -150,6 +150,7 @@
                 android:layout_centerInParent="true"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerInside"
+                android:layout_alignParentStart="true"
                 android:src="@drawable/msdnaa_b_uploadpic"
                 android:layout_weight="2" />
 
@@ -160,6 +161,7 @@
                 android:layout_centerInParent="true"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerInside"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/msdnaa_b_uploadpic"
                 android:layout_weight="2" />
 

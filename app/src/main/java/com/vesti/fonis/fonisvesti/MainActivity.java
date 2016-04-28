@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.vesti.fonis.fonisvesti.utils.Util;
 
@@ -55,8 +56,10 @@ public class MainActivity extends BaseActivity {
         btnNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent = new Intent(MainActivity.this, NewsActivity.class);
-                startActivity(mIntent);
+                if(NewsDownloaderService.newsDownloaded) {
+                    mIntent = new Intent(MainActivity.this, NewsActivity.class);
+                    startActivity(mIntent);
+                }else Toast.makeText(getApplicationContext(),"Sačekajte da se učitaju vesti",Toast.LENGTH_LONG).show();
             }
         });
 

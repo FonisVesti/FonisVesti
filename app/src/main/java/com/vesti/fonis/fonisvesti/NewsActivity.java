@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.vesti.fonis.fonisvesti.adapter.ListViewAdapter;
 import com.vesti.fonis.fonisvesti.model.News;
@@ -37,7 +39,7 @@ public class NewsActivity extends BaseActivity {
 
 
     // Flag for current page
-    int mCurrentPage ;
+    static int mCurrentPage ;
 
     private ProgressDialog mProgressDialog;
     private LinearLayout llProgressbar;
@@ -49,23 +51,6 @@ public class NewsActivity extends BaseActivity {
         setContentView(R.layout.activity_news);
 
         mCurrentPage = 2;
-//        if(News.newsList.isEmpty()) {
-//
-// //           mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
-//
-//            // Fire the downloader
-//
-//
-//     //       downloadNews(new int[]{mCurrentPage, ++mCurrentPage});
-//
-////            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-////                @Override
-////                public void onCancel(DialogInterface dialog) {
-////                    Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
-////                    stopService(downloadIntent);
-////                }
-////            });
-//        }
 
         // Init elements
         mListView = (ListView) findViewById(R.id.list);
@@ -77,15 +62,19 @@ public class NewsActivity extends BaseActivity {
         btnLoadMore.setText(R.string.loadmore_btn_txt);
         mListView.setAdapter(mAdapter);
         mListView.addFooterView(btnLoadMore);
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent i = new Intent(NewsActivity.this, NewsViewActivity.class);
-                i.putExtra("newsPosition",position);
-                Log.d(Util.TAG,Integer.toString(position));
+                i.putExtra("newsPosition", position);
+                Log.d(Util.TAG, Integer.toString(position));
                 startActivity(i);
+
             }
         });
+
 
         btnLoadMore.setOnClickListener(new View.OnClickListener() {
 
@@ -106,6 +95,26 @@ public class NewsActivity extends BaseActivity {
         startService(downloadIntent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(News.newsList.isEmpty()) {
+
+            mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
+
+
+            downloadNews(new int[]{1,2});
+            mCurrentPage = 2;
+            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Intent downloadIntent = new Intent(NewsActivity.this, NewsDownloaderService.class);
+                    stopService(downloadIntent);
+                }
+            });
+        }
+    }
+
     @SuppressLint("ParcelCreator")
     private class NewsDownloadReceiver extends ResultReceiver {
         public NewsDownloadReceiver(Handler handler) {
@@ -118,16 +127,26 @@ public class NewsActivity extends BaseActivity {
             if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
                 if(progress==0) {
-        //            mProgressDialog.setProgress(progress);
-        //            mProgressDialog.dismiss();
+                    if(mProgressDialog!=null) {
+                        mProgressDialog.setProgress(progress);
+                        mProgressDialog.dismiss();
+                    }
                     llProgressbar.setVisibility(View.GONE);
                     btnLoadMore.setVisibility(View.VISIBLE);
                     mAdapter.notifyDataSetChanged();
+                }
+                if(progress==-1){
+                    if(mProgressDialog!=null) {
+                        Toast.makeText(getApplicationContext(), "Internet konekcija je ugašena", Toast.LENGTH_SHORT).show();
+                        mProgressDialog.setProgress(progress);
+                        mProgressDialog.dismiss();
+                    }
                 }
             }
         }
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -20,8 +20,11 @@ public class ProjectsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_projects);
-        Projects.projects.add(new Project("DULLEEE", "STA RAIDS", null));
+        Projects.loadProjects();
         mListView=(ExpandableListView) findViewById(R.id.expandableListView);
         mAdapter= new ExpandableListViewAdapter(this, Projects.projects);
     }
+
+
+
 }

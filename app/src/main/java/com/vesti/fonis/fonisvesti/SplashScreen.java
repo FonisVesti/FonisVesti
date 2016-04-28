@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.vesti.fonis.fonisvesti.adapter.ListViewAdapter;
 import com.vesti.fonis.fonisvesti.model.News;
@@ -18,11 +19,12 @@ import com.vesti.fonis.fonisvesti.model.News;
  */
 public class SplashScreen extends BaseActivity {
 
-
+    ListViewAdapter mAdapter;
     private void downloadNews(int[] pages) {
         Intent downloadIntent = new Intent(this, NewsDownloaderService.class);
         downloadIntent.putExtra("pageNumber", pages);
-        downloadIntent.putExtra("caller", NewsDownloaderService.NEWS_ACTIVITY_CALLER);
+        downloadIntent.putExtra("caller", NewsDownloaderService.SPLASH_SCREEN_CALLER);
+        downloadIntent.putExtra("receiver", new NewsDownloadReceiver(new Handler()));
         startService(downloadIntent);
     }
 
@@ -35,7 +37,7 @@ public class SplashScreen extends BaseActivity {
 
         // Load first and second page
         downloadNews(new int[]{1, 2});
-
+        mAdapter=new ListViewAdapter(this,News.newsList);
         final SplashScreen splashScreen = this;
         // thread for displaying the SplashScreen
         splashTread = new Thread() {
@@ -58,6 +60,27 @@ public class SplashScreen extends BaseActivity {
         };
 
         splashTread.start();
+    }
+    @SuppressLint("ParcelCreator")
+    private class NewsDownloadReceiver extends ResultReceiver {
+        public NewsDownloadReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
+                int progress = resultData.getInt("progress");
+                if(progress==-1){
+                        Toast.makeText(getApplicationContext(), "Internet konekcija je ugašena", Toast.LENGTH_SHORT).show();
+
+
+                }else mAdapter.notifyDataSetChanged();
+
+            }
+        }
+
     }
 }
 

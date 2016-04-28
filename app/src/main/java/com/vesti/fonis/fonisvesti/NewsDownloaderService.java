@@ -1,6 +1,6 @@
 package com.vesti.fonis.fonisvesti;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.IntentService;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.os.ResultReceiver;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -45,26 +46,63 @@ public class NewsDownloaderService extends IntentService {
     public static final int NEWS_ACTIVITY_CALLER = 0;
     public static final int NEWS_VIEW_ACTIVITY_CALLER = 1;
     public static final int IMAGE_CALLER = 2;
+    public static final int SPLASH_SCREEN_CALLER=3;
     private HttpURLConnection connection = null;
     private String text = null;
     private BufferedReader in = null;
     private URL url;
-
+    public static volatile boolean newsDownloaded=true;
     public NewsDownloaderService() {
         super("NewsDownloaderService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent){
+        if(newsDownloaded)
         switch (intent.getExtras().getInt("caller")) {
+            case SPLASH_SCREEN_CALLER:{
+                try {
+                    downloadNews(intent);
+                }catch(NoInternetException e){
+                        Bundle resultData = new Bundle();
+                        resultData.putInt("progress", -1);
+                        ResultReceiver receiver = intent.getParcelableExtra("receiver");
+                        if (receiver != null)
+                            receiver.send(UPDATE_PROGRESS, resultData);
+
+                        newsDownloaded=true;
+                        NewsActivity.mCurrentPage=1;
+
+                }
+                break;
+            }
             case NEWS_ACTIVITY_CALLER: {
+                try {
+                    downloadNews(intent);
+                }catch(NoInternetException e){
+                    Bundle resultData = new Bundle();
+                    resultData.putInt("progress", -1);
+                    ResultReceiver receiver = intent.getParcelableExtra("receiver");
+                    if (receiver != null)
+                        receiver.send(UPDATE_PROGRESS, resultData);
+                    newsDownloaded=true;
+                    NewsActivity.mCurrentPage--;
 
-                downloadNews(intent);
-
+                }
                 break;
             }
             case NEWS_VIEW_ACTIVITY_CALLER: {
-                downloadOnePieceOfNews(intent);
+                try {
+                    downloadOnePieceOfNews(intent);
+                }catch(NoInternetException e){
+                    Bundle resultData = new Bundle();
+                    resultData.putInt("progress", -1);
+                    ResultReceiver receiver = intent.getParcelableExtra("receiver");
+                    if (receiver != null)
+                        receiver.send(UPDATE_PROGRESS, resultData);
+
+
+                }
                 break;
             }
             case IMAGE_CALLER: {
@@ -75,7 +113,7 @@ public class NewsDownloaderService extends IntentService {
 
     }
 
-    private void downloadOnePieceOfNews(Intent intent) {
+    private void downloadOnePieceOfNews(Intent intent) throws NoInternetException{
         int id = intent.getExtras().getInt("onePieceOfNewsId");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
         try {
@@ -91,13 +129,13 @@ public class NewsDownloaderService extends IntentService {
 
         if (receiver != null)
             receiver.send(UPDATE_PROGRESS, resultData);
-
         //TODO - add broadcast
     }
 
 
 
-    private void downloadNews(Intent intent) {
+    private void downloadNews(Intent intent) throws NoInternetException{
+        newsDownloaded=false;
         int[] pageNumber = intent.getExtras().getIntArray("pageNumber");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
@@ -118,8 +156,8 @@ public class NewsDownloaderService extends IntentService {
             makeTheNews(textJSON);
 
             Bundle resultData = new Bundle();
-            if (pageNumber[i] == 2) resultData.putInt("progress", 1);
-            else resultData.putInt("progress", 0);
+
+            resultData.putInt("progress", 0);
 
 
 
@@ -133,10 +171,10 @@ public class NewsDownloaderService extends IntentService {
             Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
         }
 
-
+        newsDownloaded=true;
     }
 
-    private String downloadJSON(URL url) {
+    private String downloadJSON(URL url) throws NoInternetException{
         try {
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -152,7 +190,8 @@ public class NewsDownloaderService extends IntentService {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+           // showAlertDialog();
+            throw new NoInternetException("Isključen vam je internet");
         } finally {
             if (connection != null)
                 connection.disconnect();
@@ -165,6 +204,7 @@ public class NewsDownloaderService extends IntentService {
         }
         return text;
     }
+
 
     private void makeTheNews(String tekstJSON) {
         try {
@@ -241,5 +281,9 @@ public class NewsDownloaderService extends IntentService {
         super.onDestroy();
 
     }
-
+    class NoInternetException extends Exception{
+        public NoInternetException(String msg){
+            super(msg);
+        }
+    }
 }

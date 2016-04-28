@@ -46,21 +46,23 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="SADAS"
                 android:id="@+id/tvNewsTitle"
-                android:textSize="16sp"
-                android:layout_margin="10dp"
-                    android:textColor="@color/text_color_white" />
+                android:textSize="14sp"
+
+                    android:textColor="@color/text_color_white"
+                    android:layout_weight="4"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="ADSADS"
                 android:id="@+id/tvNewsDate"
                 android:layout_gravity="left"
                 android:textSize="?attr/font_small"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/colorAccent" />
+
+                android:textColor="@color/colorAccent"
+                android:layout_weight="1"/>
                 </LinearLayout>
             </LinearLayout>
             <TextView
