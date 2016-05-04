@@ -3,6 +3,8 @@ package com.vesti.fonis.fonisvesti.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.R;
+import com.vesti.fonis.fonisvesti.utils.Util;
 
 public class ListViewAdapter extends BaseAdapter implements Filterable {
 
@@ -24,7 +27,10 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     public ListViewAdapter(Context context, List<OnePieceOfNews> newsList) {
         mContext = context;
         mData = newsList;
-        
+
+    }
+    public int getOnePieceOfNewsID(int position){
+        return mData.get(position).getId();
     }
 
     public int getCount() {
@@ -39,7 +45,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -56,7 +62,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
         tvData.setText(mData.get(position).getTitle());
         ImageView imNewsImage = (ImageView) convertView.findViewById(R.id.imNewsImage);
-        if(mData.get(position).getThumbnail()!=null)
+        if (mData.get(position).getThumbnail() != null)
             imNewsImage.setImageBitmap(mData.get(position).getThumbnail());
 
         int sdk = android.os.Build.VERSION.SDK_INT;
@@ -80,7 +86,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
                 tvData.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
             }
         }
-
         return convertView;
     }
 

@@ -68,8 +68,7 @@ public class NewsActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent i = new Intent(NewsActivity.this, NewsViewActivity.class);
-                i.putExtra("newsPosition", position);
-                Log.d(Util.TAG, Integer.toString(position));
+                i.putExtra("newsId", mAdapter.getOnePieceOfNewsID(position));
                 startActivity(i);
 
             }
