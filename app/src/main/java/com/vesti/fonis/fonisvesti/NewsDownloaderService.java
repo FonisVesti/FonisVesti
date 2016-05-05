@@ -1,5 +1,6 @@
 package com.vesti.fonis.fonisvesti;
 
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.app.IntentService;
 import android.content.DialogInterface;
@@ -46,74 +47,75 @@ public class NewsDownloaderService extends IntentService {
     public static final int NEWS_ACTIVITY_CALLER = 0;
     public static final int NEWS_VIEW_ACTIVITY_CALLER = 1;
     public static final int IMAGE_CALLER = 2;
-    public static final int SPLASH_SCREEN_CALLER=3;
+    public static final int SPLASH_SCREEN_CALLER = 3;
     private HttpURLConnection connection = null;
     private String text = null;
     private BufferedReader in = null;
     private URL url;
-    public static volatile boolean newsDownloaded=true;
+    public static volatile boolean newsDownloaded = true;
+
     public NewsDownloaderService() {
         super("NewsDownloaderService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent){
-        if(newsDownloaded)
-        switch (intent.getExtras().getInt("caller")) {
-            case SPLASH_SCREEN_CALLER:{
-                try {
-                    downloadNews(intent);
-                }catch(NoInternetException e){
+    protected void onHandleIntent(Intent intent) {
+        if (newsDownloaded)
+            switch (intent.getExtras().getInt("caller")) {
+                case SPLASH_SCREEN_CALLER: {
+                    try {
+                        downloadNews(intent);
+                    } catch (NoInternetException e) {
                         Bundle resultData = new Bundle();
                         resultData.putInt("progress", -1);
                         ResultReceiver receiver = intent.getParcelableExtra("receiver");
                         if (receiver != null)
                             receiver.send(UPDATE_PROGRESS, resultData);
 
-                        newsDownloaded=true;
-                        NewsActivity.mCurrentPage=1;
+                        newsDownloaded = true;
+                        NewsActivity.mCurrentPage = 1;
 
+                    }
+                    break;
                 }
-                break;
-            }
-            case NEWS_ACTIVITY_CALLER: {
-                try {
-                    downloadNews(intent);
-                }catch(NoInternetException e){
-                    Bundle resultData = new Bundle();
-                    resultData.putInt("progress", -1);
-                    ResultReceiver receiver = intent.getParcelableExtra("receiver");
-                    if (receiver != null)
-                        receiver.send(UPDATE_PROGRESS, resultData);
-                    newsDownloaded=true;
-                    NewsActivity.mCurrentPage--;
+                case NEWS_ACTIVITY_CALLER: {
+                    try {
+                        downloadNews(intent);
+                    } catch (NoInternetException e) {
+                        Bundle resultData = new Bundle();
+                        resultData.putInt("progress", -1);
+                        ResultReceiver receiver = intent.getParcelableExtra("receiver");
+                        if (receiver != null)
+                            receiver.send(UPDATE_PROGRESS, resultData);
+                        newsDownloaded = true;
+                        NewsActivity.mCurrentPage--;
 
+                    }
+                    break;
                 }
-                break;
-            }
-            case NEWS_VIEW_ACTIVITY_CALLER: {
-                try {
-                    downloadOnePieceOfNews(intent);
-                }catch(NoInternetException e){
-                    Bundle resultData = new Bundle();
-                    resultData.putInt("progress", -1);
-                    ResultReceiver receiver = intent.getParcelableExtra("receiver");
-                    if (receiver != null)
-                        receiver.send(UPDATE_PROGRESS, resultData);
+                case NEWS_VIEW_ACTIVITY_CALLER: {
+                    try {
+                        downloadOnePieceOfNews(intent);
+                    } catch (NoInternetException e) {
+                        Bundle resultData = new Bundle();
+                        resultData.putInt("progress", -1);
+                        ResultReceiver receiver = intent.getParcelableExtra("receiver");
+                        if (receiver != null)
+                            receiver.send(UPDATE_PROGRESS, resultData);
 
 
+                    }
+                    break;
                 }
-                break;
+                case IMAGE_CALLER: {
+                    // downloadImage("");
+                    break;
+                }
             }
-            case IMAGE_CALLER: {
-                // downloadImage("");
-                break;
-            }
-        }
 
     }
 
-    private void downloadOnePieceOfNews(Intent intent) throws NoInternetException{
+    private void downloadOnePieceOfNews(Intent intent) throws NoInternetException {
         int id = intent.getExtras().getInt("onePieceOfNewsId");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
         try {
@@ -133,9 +135,8 @@ public class NewsDownloaderService extends IntentService {
     }
 
 
-
-    private void downloadNews(Intent intent) throws NoInternetException{
-        newsDownloaded=false;
+    private void downloadNews(Intent intent) throws NoInternetException {
+        newsDownloaded = false;
         int[] pageNumber = intent.getExtras().getIntArray("pageNumber");
         ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
@@ -150,31 +151,27 @@ public class NewsDownloaderService extends IntentService {
             }
 
             //Downloading news and making news objects
-
             String textJSON = downloadJSON(url);
-
             makeTheNews(textJSON);
 
             Bundle resultData = new Bundle();
-
             resultData.putInt("progress", 0);
-
-
-
-
             if (receiver != null)
                 receiver.send(UPDATE_PROGRESS, resultData);
             //   News.currentList=News.newsList;
 
         }
-        for (int i = 0; i < News.newsList.size(); i++) {
-            Log.d(Util.TAG, "Vest " + i + ":" + News.newsList.get(i).toString());
+        for (int i = 0; i < News.getNewsList().size(); i++) {
+            Log.d(Util.TAG, "Vest " + i + ":" + News.getNewsList().get(i).toString());
         }
-
-        newsDownloaded=true;
+        newsDownloaded = true;
+        if (pageNumber[0] == 1) {
+            sendStickyBroadcast(new Intent(News.NEWS_DOWNLOADED_INTENT));
+            Log.d(Util.TAG, "Broadcast is sent.");
+        }
     }
 
-    private String downloadJSON(URL url) throws NoInternetException{
+    private String downloadJSON(URL url) throws NoInternetException {
         try {
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -190,7 +187,7 @@ public class NewsDownloaderService extends IntentService {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-           // showAlertDialog();
+            // showAlertDialog();
             throw new NoInternetException("Isključen vam je internet");
         } finally {
             if (connection != null)
@@ -217,40 +214,18 @@ public class NewsDownloaderService extends IntentService {
                 String title = vest.getString("title");
                 String textHTML = vest.getString("content");
                 GregorianCalendar date = createDate(vest.getString("date"));
-                Bitmap image = null;
-                if (vest.has("thumbnail_images")) {
-                    JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
-                    String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
-                    if (imageURL != null) {
-                        image = downloadImage(imageURL);
-                    }
-                }
-                OnePieceOfNews v = new OnePieceOfNews(id, title, date, textHTML, image);
-                if (!News.newsList.contains(v))
-                    News.newsList.add(v);
+                JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
+                String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
+
+                OnePieceOfNews v = new OnePieceOfNews(id, title, date, textHTML, imageURL);
+                if (!News.getNewsList().contains(v))
+                    News.addNews(v);
             }
             mDownloadedPages++;
             Log.d(Util.TAG, "makeTheNews: page downloaded: " + mDownloadedPages);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private Bitmap downloadImage(String URL) {
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheOnDisc(true).cacheInMemory(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new FadeInBitmapDisplayer(300)).build();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                getApplicationContext())
-                .defaultDisplayImageOptions(defaultOptions)
-                .memoryCache(new WeakMemoryCache())
-                .discCacheSize(100 * 1024 * 1024).build();
-        ImageLoader.getInstance().init(config);
-        ImageLoader imageLoader = ImageLoader.getInstance();
-
-        return imageLoader.loadImageSync(URL);
     }
 
     private void setText(int id, String textJSON) {
@@ -261,7 +236,6 @@ public class NewsDownloaderService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     private GregorianCalendar createDate(String datumS) {
@@ -281,8 +255,9 @@ public class NewsDownloaderService extends IntentService {
         super.onDestroy();
 
     }
-    class NoInternetException extends Exception{
-        public NoInternetException(String msg){
+
+    class NoInternetException extends Exception {
+        public NoInternetException(String msg) {
             super(msg);
         }
     }

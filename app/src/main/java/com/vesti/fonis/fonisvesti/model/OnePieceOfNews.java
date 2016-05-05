@@ -1,7 +1,6 @@
 package com.vesti.fonis.fonisvesti.model;
 
 import android.graphics.Bitmap;
-import android.text.Html;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,13 +16,13 @@ public class OnePieceOfNews {
     private String title;
     private GregorianCalendar date;
     private String textHTML;
-    private Bitmap thumbnail;
+    private String imageUrl;
     private List<String> imagesURL;
     private List<Bitmap> images;
 
 
-    public Bitmap getThumbnail() {
-        return thumbnail;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
 
@@ -43,14 +42,14 @@ public class OnePieceOfNews {
         parse();
     }
 
-    public OnePieceOfNews(int id, String title, GregorianCalendar date, String textHTML, Bitmap image) {
+    public OnePieceOfNews(int id, String title, GregorianCalendar date, String textHTML, String imageUrl) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.textHTML = textHTML;
         removeImagesFromHTML();
         removeShareButtons();
-        this.thumbnail =image;
+        this.imageUrl = imageUrl;
         parse();
 
     }

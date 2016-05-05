@@ -1,10 +1,11 @@
 package com.vesti.fonis.fonisvesti.adapter;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,12 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.R;
@@ -23,13 +30,18 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     private Context mContext;
     private List<OnePieceOfNews> mData;
+    private ImageLoader mImageLoader;
 
     public ListViewAdapter(Context context, List<OnePieceOfNews> newsList) {
         mContext = context;
         mData = newsList;
 
+        mImageLoader = Util.getImageLoader(context);
     }
-    public int getOnePieceOfNewsID(int position){
+
+
+
+    public int getOnePieceOfNewsID(int position) {
         return mData.get(position).getId();
     }
 
@@ -62,8 +74,10 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
         tvData.setText(mData.get(position).getTitle());
         ImageView imNewsImage = (ImageView) convertView.findViewById(R.id.imNewsImage);
-        if (mData.get(position).getThumbnail() != null)
-            imNewsImage.setImageBitmap(mData.get(position).getThumbnail());
+        if (mData.get(position).getImageUrl() != null)
+            mImageLoader.displayImage(mData.get(position).getImageUrl(), imNewsImage);
+//            new ImageDownloaderTask(mContext, imNewsImage).execute(mData.get(position).getImageUrl());
+
 
         int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk < 16) {
@@ -88,6 +102,8 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         }
         return convertView;
     }
+
+
 
     @Override
     public int getViewTypeCount() {
@@ -123,5 +139,24 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             }
         };
         return filter;
+    }
+
+    private class ImageDownloaderTask extends AsyncTask<String, Void, Void> {
+
+        private Context context;
+        private WeakReference<ImageView> imageView;
+
+        public ImageDownloaderTask(Context context, ImageView imageView) {
+            this.context = context;
+            this.imageView = new WeakReference<ImageView>(imageView);
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String URL = params[0];
+
+
+            return null;
+        }
     }
 }

@@ -2,19 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vesti.fonis.fonisvesti">
 
-    <permission android:name="com.vesti.fonis.fonisvesti.permision.MAPS_RECEIVE"
+    <permission
+        android:name="com.vesti.fonis.fonisvesti.permision.MAPS_RECEIVE"
         android:protectionLevel="signature">
-        <uses-permision android:name="com.vesti.fonis.fonisvesti.permision.MAPS_RECEIVE"> </uses-permision>
+        <uses-permision android:name="com.vesti.fonis.fonisvesti.permision.MAPS_RECEIVE"></uses-permision>
 
     </permission>
+
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
-
-
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -25,12 +27,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAZ2fFOr6Ecrbz4vaqJiouKxomlq1LlTFE"/>
+            android:value="AIzaSyAZ2fFOr6Ecrbz4vaqJiouKxomlq1LlTFE" />
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,13 +68,15 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".AboutActivity"
-            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity" >
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -84,8 +89,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MSDNAAActivity"
-            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity" >
+        <activity
+            android:name=".MSDNAAActivity"
+            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -97,8 +103,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProjectsActivity"
-            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity" >
+        <activity
+            android:name=".ProjectsActivity"
+            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -117,8 +124,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NewsViewActivity"
-            android:parentActivityName="com.vesti.fonis.fonisvesti.NewsActivity" >
+        <activity
+            android:name=".NewsViewActivity"
+            android:parentActivityName="com.vesti.fonis.fonisvesti.NewsActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -131,16 +139,18 @@
 
         <service android:name=".NewsDownloaderService" />
 
-        <activity android:name=".MSDNAASumbitActivity"
-            android:parentActivityName="com.vesti.fonis.fonisvesti.MSDNAAActivity" >
+        <activity
+            android:name=".MSDNAASumbitActivity"
+            android:parentActivityName="com.vesti.fonis.fonisvesti.MSDNAAActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vesti.fonis.fonisvesti.MSDNAAActivity" />>>
         </activity>
 
-        <activity android:name=".MSDNAASumbitSuccessActivity"
-            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity" >
+        <activity
+            android:name=".MSDNAASumbitSuccessActivity"
+            android:parentActivityName="com.vesti.fonis.fonisvesti.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

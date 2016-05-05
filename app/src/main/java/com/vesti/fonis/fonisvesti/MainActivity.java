@@ -56,10 +56,8 @@ public class MainActivity extends BaseActivity {
         btnNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NewsDownloaderService.newsDownloaded) {
                     mIntent = new Intent(MainActivity.this, NewsActivity.class);
                     startActivity(mIntent);
-                }else Toast.makeText(getApplicationContext(),"Sačekajte da se učitaju vesti",Toast.LENGTH_LONG).show();
             }
         });
 

@@ -19,7 +19,6 @@ import com.vesti.fonis.fonisvesti.model.News;
  */
 public class SplashScreen extends BaseActivity {
 
-    ListViewAdapter mAdapter;
     private void downloadNews(int[] pages) {
         Intent downloadIntent = new Intent(this, NewsDownloaderService.class);
         downloadIntent.putExtra("pageNumber", pages);
@@ -37,7 +36,7 @@ public class SplashScreen extends BaseActivity {
 
         // Load first and second page
         downloadNews(new int[]{1, 2});
-        mAdapter=new ListViewAdapter(this,News.newsList);
+
         final SplashScreen splashScreen = this;
         // thread for displaying the SplashScreen
         splashTread = new Thread() {
@@ -75,8 +74,7 @@ public class SplashScreen extends BaseActivity {
                 if(progress==-1){
                         Toast.makeText(getApplicationContext(), "Internet konekcija je ugašena", Toast.LENGTH_SHORT).show();
 
-
-                }else mAdapter.notifyDataSetChanged();
+                }
 
             }
         }

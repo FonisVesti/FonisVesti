@@ -1,14 +1,18 @@
 package com.vesti.fonis.fonisvesti;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 
 
 import android.app.ProgressDialog;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.os.ResultReceiver;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -33,13 +37,15 @@ import com.vesti.fonis.fonisvesti.utils.Util;
  */
 public class NewsActivity extends BaseActivity {
 
+
     private ListView mListView;
     private ListViewAdapter mAdapter;
     private Button btnLoadMore;
-
+    private LocalBroadcastManager mLocalBcastManager;
+    private NewsBroadcastReceiver newsBroadcastReceiver;
 
     // Flag for current page
-    static int mCurrentPage ;
+    static int mCurrentPage;
 
     private ProgressDialog mProgressDialog;
     private LinearLayout llProgressbar;
@@ -53,27 +59,43 @@ public class NewsActivity extends BaseActivity {
         mCurrentPage = 2;
 
         // Init elements
+        init();
+    }
+
+    private void init() {
         mListView = (ListView) findViewById(R.id.list);
         btnLoadMore = new Button(this);
         llProgressbar = (LinearLayout) findViewById(R.id.llProgressBar);
-//        mAdapter=new ListViewAdapter(this,News.currentList);
-        mAdapter = new ListViewAdapter(this, News.newsList);
+        newsBroadcastReceiver = new NewsBroadcastReceiver();
 
         btnLoadMore.setText(R.string.loadmore_btn_txt);
+        mAdapter = new ListViewAdapter(NewsActivity.this, News.getNewsList());
         mListView.setAdapter(mAdapter);
         mListView.addFooterView(btnLoadMore);
+        setOnClickListeners();
 
+        registerReceiver(newsBroadcastReceiver, new IntentFilter(News.NEWS_DOWNLOADED_INTENT));
+
+    }
+
+    private class NewsBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(Util.TAG, "Broadcast received");
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setOnClickListeners() {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent i = new Intent(NewsActivity.this, NewsViewActivity.class);
                 i.putExtra("newsId", mAdapter.getOnePieceOfNewsID(position));
                 startActivity(i);
-
             }
         });
-
 
         btnLoadMore.setOnClickListener(new View.OnClickListener() {
 
@@ -89,7 +111,7 @@ public class NewsActivity extends BaseActivity {
     private void downloadNews(int[] pages) {
         Intent downloadIntent = new Intent(this, NewsDownloaderService.class);
         downloadIntent.putExtra("pageNumber", pages);
-        downloadIntent.putExtra("caller",NewsDownloaderService.NEWS_ACTIVITY_CALLER);
+        downloadIntent.putExtra("caller", NewsDownloaderService.NEWS_ACTIVITY_CALLER);
         downloadIntent.putExtra("receiver", new NewsDownloadReceiver(new Handler()));
         startService(downloadIntent);
     }
@@ -97,12 +119,12 @@ public class NewsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(News.newsList.isEmpty()) {
+        if (News.getNewsList().isEmpty()) {
 
             mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
 
 
-            downloadNews(new int[]{1,2});
+            downloadNews(new int[]{1, 2});
             mCurrentPage = 2;
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
@@ -112,6 +134,13 @@ public class NewsActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (newsBroadcastReceiver != null)
+            unregisterReceiver(newsBroadcastReceiver);
+        super.onDestroy();
     }
 
     @SuppressLint("ParcelCreator")
@@ -125,8 +154,8 @@ public class NewsActivity extends BaseActivity {
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == NewsDownloaderService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
-                if(progress==0) {
-                    if(mProgressDialog!=null) {
+                if (progress == 0) {
+                    if (mProgressDialog != null) {
                         mProgressDialog.setProgress(progress);
                         mProgressDialog.dismiss();
                     }
@@ -134,8 +163,8 @@ public class NewsActivity extends BaseActivity {
                     btnLoadMore.setVisibility(View.VISIBLE);
                     mAdapter.notifyDataSetChanged();
                 }
-                if(progress==-1){
-                    if(mProgressDialog!=null) {
+                if (progress == -1) {
+                    if (mProgressDialog != null) {
                         Toast.makeText(getApplicationContext(), "Internet konekcija je ugašena", Toast.LENGTH_SHORT).show();
                         mProgressDialog.setProgress(progress);
                         mProgressDialog.dismiss();
@@ -162,14 +191,14 @@ public class NewsActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d(Util.TAG,query);
+                Log.d(Util.TAG, query);
                 mAdapter.getFilter().filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d(Util.TAG,newText);
+                Log.d(Util.TAG, newText);
                 mAdapter.getFilter().filter(newText);
                 return true;
             }
@@ -186,7 +215,7 @@ public class NewsActivity extends BaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
+        switch (id) {
             case R.id.action_settings:
                 Intent i = new Intent(this, PreferencesActivity.class);
                 startActivity(i);
@@ -195,7 +224,6 @@ public class NewsActivity extends BaseActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-
 
 
     }

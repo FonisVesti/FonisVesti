@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
+import com.vesti.fonis.fonisvesti.utils.Util;
 
 import java.text.SimpleDateFormat;
 
@@ -27,6 +29,7 @@ public class NewsViewActivity extends BaseActivity {
     private TextView tvNewsTitle, tvNewsDate, tvNewsText;
     private ProgressDialog mProgressDialog;
     private OnePieceOfNews news;
+    private ImageLoader mImageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class NewsViewActivity extends BaseActivity {
         tvNewsDate = (TextView) findViewById(R.id.tvNewsDate);
         tvNewsText = (TextView) findViewById(R.id.tvNewsText);
         tvNewsTitle = (TextView) findViewById(R.id.tvNewsTitle);
+        mImageLoader = Util.getImageLoader(this);
 
         //  news = News.currentList.get(mNewsId);
         news = News.findOnePieceOfNewsByID(mNewsId);
@@ -50,8 +54,7 @@ public class NewsViewActivity extends BaseActivity {
 
 
         tvNewsText.setMovementMethod(LinkMovementMethod.getInstance());
-
-        imNewsImage.setImageBitmap(news.getThumbnail());
+        mImageLoader.displayImage(news.getImageUrl(), imNewsImage);
 
         String text = news.getText();
         if (text.toLowerCase().endsWith("read more")) {
