@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="DULEEEEE"
                 android:id="@+id/tvProjectTittle"
-                android:textSize="35sp" />
+                android:textSize="?attr/font_large" />
 
         </LinearLayout>
     </LinearLayout>

@@ -14,5 +14,5 @@
             android:background="@drawable/news_onenews_bg"
             android:layout_marginBottom="@dimen/onepieceofnews_top_margin"
             android:padding="10dp"
-            android:textSize="16dp" />
+            android:textSize="?attr/font_medium" />
     </LinearLayout>
