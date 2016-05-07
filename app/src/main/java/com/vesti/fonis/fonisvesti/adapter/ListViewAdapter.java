@@ -76,7 +76,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         ImageView imNewsImage = (ImageView) convertView.findViewById(R.id.imNewsImage);
         if (mData.get(position).getImageUrl() != null)
             mImageLoader.displayImage(mData.get(position).getImageUrl(), imNewsImage);
-//            new ImageDownloaderTask(mContext, imNewsImage).execute(mData.get(position).getImageUrl());
 
 
         int sdk = android.os.Build.VERSION.SDK_INT;

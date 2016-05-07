@@ -214,9 +214,11 @@ public class NewsDownloaderService extends IntentService {
                 String title = vest.getString("title");
                 String textHTML = vest.getString("content");
                 GregorianCalendar date = createDate(vest.getString("date"));
-                JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
-                String imageURL = thumbnailJSON.getJSONObject("full").getString("url");
-
+                String imageURL = null;
+                if (vest.has("thumbnail_images")) {
+                    JSONObject thumbnailJSON = vest.getJSONObject("thumbnail_images");
+                    imageURL = thumbnailJSON.getJSONObject("full").getString("url");
+                }
                 OnePieceOfNews v = new OnePieceOfNews(id, title, date, textHTML, imageURL);
                 if (!News.getNewsList().contains(v))
                     News.addNews(v);

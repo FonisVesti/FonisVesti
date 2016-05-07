@@ -30,8 +30,7 @@ public class Util {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true).cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .displayer(new FadeInBitmapDisplayer(300)).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 context)
