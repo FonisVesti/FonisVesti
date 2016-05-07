@@ -78,6 +78,7 @@ public class ProjectsListAdapter extends BaseExpandableListAdapter {
         if(groupPosition == 0)
             return convertView;
 
+
         TextView tvTittle = (TextView)convertView.findViewById(R.id.tvProjectTittle);
         ImageView ivProjectPic  = (ImageView)convertView.findViewById(R.id.ivProjectImage);
 

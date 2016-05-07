@@ -35,7 +35,7 @@ public class MSDNAASumbitActivity extends BaseActivity {
     private static final int REQUEST_SELECT_PHOTO = 101;
 
     // Email data
-    private static final String FONIS_MSDNAA_EMAIL = "radovanr995@gmail.com";
+    private static final String FONIS_MSDNAA_EMAIL = "msdnaa@fonis.rs";
     private static final String EMAIL_SUBJECT = "MSDNAA Nalog";
     private SenderDetails mDetails;
     // Path where the take image is saved
