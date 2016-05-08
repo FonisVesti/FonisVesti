@@ -59,6 +59,7 @@ public class NewsViewActivity extends BaseActivity {
         String text = news.getText();
         if (text.toLowerCase().endsWith("read more")) {
             mProgressDialog = ProgressDialog.show(this, null, "Učitavanje vesti..", true, true);
+            mProgressDialog.setCancelable(false);
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
