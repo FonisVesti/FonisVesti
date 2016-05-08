@@ -24,7 +24,10 @@ public class AboutActivity extends BaseActivity implements OnMapReadyCallback{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }catch (Exception e){}
+
         setContentView(R.layout.activity_about);
         googleMap=((MapFragment) getFragmentManager().findFragmentById(R.id.map));
         googleMap.getMapAsync(this);
