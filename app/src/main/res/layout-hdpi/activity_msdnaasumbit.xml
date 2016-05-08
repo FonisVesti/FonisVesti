@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/llData"
+            android:id="@+id/llPieceOfNewsData"
             android:orientation="vertical">
         <LinearLayout
             style="@style/MsdnaaInputForm"
@@ -131,7 +131,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/llData"
+            android:layout_below="@+id/llPieceOfNewsData"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"

@@ -4,7 +4,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +15,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.vesti.fonis.fonisvesti.model.News;
 import com.vesti.fonis.fonisvesti.model.OnePieceOfNews;
 import com.vesti.fonis.fonisvesti.R;
@@ -38,7 +33,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
         mImageLoader = Util.getImageLoader(context);
     }
-
 
 
     public int getOnePieceOfNewsID(int position) {
@@ -60,49 +54,65 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewHolder viewHolder;
 
         if (getItemViewType(position) != 0) {
             if (convertView == null) {
-
                 convertView = li.inflate(R.layout.news_list_item, null);
+                viewHolder = new ViewHolder();
+                viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.tvData);
+                viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.imNewsImage);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
         } else {
             if (convertView == null) {
                 convertView = li.inflate(R.layout.news_first_list_item, null);
-            }
+                viewHolder = new ViewHolder();
+                viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.tvData);
+                viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.imNewsImage);
+                convertView.setTag(viewHolder);
+            } else
+                viewHolder = (ViewHolder) convertView.getTag();
         }
-        TextView tvData = (TextView) convertView.findViewById(R.id.tvData);
-        tvData.setText(mData.get(position).getTitle());
-        ImageView imNewsImage = (ImageView) convertView.findViewById(R.id.imNewsImage);
-        if (mData.get(position).getImageUrl() != null)
-            mImageLoader.displayImage(mData.get(position).getImageUrl(), imNewsImage);
 
+        // Setting up textView
+        viewHolder.textViewItem.setText(mData.get(position).getTitle());
+        if (mData.get(position).getImageUrl() != null) {
+            viewHolder.imageViewItem.setImageResource(R.drawable.empty_photo);
+            mImageLoader.displayImage(mData.get(position).getImageUrl(), viewHolder.imageViewItem);
+        } else
+            viewHolder.imageViewItem.setImageResource(R.drawable.empty_photo);
 
         int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk < 16) {
 
             if (position != 0 && position % 2 != 0) {
-                imNewsImage.setBackgroundDrawable(mContext.getResources().getDrawable(R.color.text_color_white));
-                tvData.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+                viewHolder.imageViewItem.setBackgroundDrawable(mContext.getResources().getDrawable(R.color.text_color_white));
+                viewHolder.textViewItem.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
             } else {
-                imNewsImage.setBackgroundDrawable(mContext.getResources().getDrawable(R.color.colorAccent));
-                tvData.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
+                viewHolder.imageViewItem.setBackgroundDrawable(mContext.getResources().getDrawable(R.color.colorAccent));
+                viewHolder.textViewItem.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
             }
 
         } else {
 
             if (position != 0 && position % 2 != 0) {
-                imNewsImage.setBackground(mContext.getResources().getDrawable(R.color.text_color_white));
-                tvData.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+                viewHolder.imageViewItem.setBackground(mContext.getResources().getDrawable(R.color.text_color_white));
+                viewHolder.textViewItem.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
             } else {
-                imNewsImage.setBackground(mContext.getResources().getDrawable(R.color.colorAccent));
-                tvData.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
+                viewHolder.imageViewItem.setBackground(mContext.getResources().getDrawable(R.color.colorAccent));
+                viewHolder.textViewItem.setTextColor(mContext.getResources().getColor(R.color.text_color_white));
             }
         }
         return convertView;
     }
 
-
+    static class ViewHolder {
+        TextView textViewItem;
+        ImageView imageViewItem;
+    }
 
     @Override
     public int getViewTypeCount() {
@@ -138,24 +148,5 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             }
         };
         return filter;
-    }
-
-    private class ImageDownloaderTask extends AsyncTask<String, Void, Void> {
-
-        private Context context;
-        private WeakReference<ImageView> imageView;
-
-        public ImageDownloaderTask(Context context, ImageView imageView) {
-            this.context = context;
-            this.imageView = new WeakReference<ImageView>(imageView);
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            String URL = params[0];
-
-
-            return null;
-        }
     }
 }

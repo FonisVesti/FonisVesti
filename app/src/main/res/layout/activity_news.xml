@@ -11,7 +11,8 @@
         android:layout_height="fill_parent"
         android:visibility="visible"
         android:background="@color/colorPrimaryLight"
-        android:dividerHeight="@dimen/onepieceofnews_top_margin" />
+        android:dividerHeight="@dimen/onepieceofnews_top_margin"
+/>
 
     <LinearLayout
         android:id="@+id/llProgressBar"

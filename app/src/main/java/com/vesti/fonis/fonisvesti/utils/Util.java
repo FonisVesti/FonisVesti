@@ -1,7 +1,10 @@
 package com.vesti.fonis.fonisvesti.utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -20,7 +23,7 @@ public class Util {
     public static ImageLoader getImageLoader(Context context) {
         if (mImageLoader != null)
             return mImageLoader;
-        else{
+        else {
             init(context);
             return mImageLoader;
         }
@@ -39,5 +42,9 @@ public class Util {
                 .discCacheSize(100 * 1024 * 1024).build();
         ImageLoader.getInstance().init(config);
         mImageLoader = ImageLoader.getInstance();
+    }
+
+    public static float getDP(float size, Context context) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, context.getResources().getDisplayMetrics());
     }
 }

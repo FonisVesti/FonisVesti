@@ -14,9 +14,10 @@
 
     <!-- News dimens / Projects -->
     <dimen name="onepieceofnews_top_margin">10dp</dimen>
-    <dimen name="onepieceofnews_side_margin">20dp</dimen>
+    <dimen name="onepieceofnews_side_margin">15dp</dimen>
     <dimen name="onepieceofnews_normal_height">80dp</dimen>
     <dimen name="onepieceofnews_big_height">200dp</dimen>
+    <dimen name="onepieceofnews_title_height">80dp</dimen>
 
 
 </resources>

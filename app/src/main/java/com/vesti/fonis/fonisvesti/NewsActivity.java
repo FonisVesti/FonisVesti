@@ -41,7 +41,6 @@ public class NewsActivity extends BaseActivity {
     private ListView mListView;
     private ListViewAdapter mAdapter;
     private Button btnLoadMore;
-    private LocalBroadcastManager mLocalBcastManager;
     private NewsBroadcastReceiver newsBroadcastReceiver;
 
     // Flag for current page
